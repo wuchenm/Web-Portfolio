@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">  <!--language-->
+<head>
+    <meta charset="utf-8" /> <!--tells the browser how to interpret the text -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> <!--mobile scaling response-->
+    <title>Mateo Wu Chen Personal Portfolio</title>
+    <meta name="description" content="Personal portfolio about myself to showcase my projects, experience, and contact." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --bg: #0b0c10;
+        --panel: #12141a;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --accent: #60a5fa;
+        --ring: rgba(96,165,250,0.45);
+        --card: #0f1116;
+        --radius: 16px;
+        --shadow: 0 10px 30px rgba(0,0,0,0.35);
+        --maxw: 1080px;
+    }
+    *{box-sizing:border-box}
+    html, body {
+        background-color: #06121f;
+        color: var(--text);
+        min-height: 100%;
+    }
+    body{
+        margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+        background:
+            radial-gradient(1200px 600px at 10% 0%, #0f172a 0%, var(--bg) 50%),
+            radial-gradient(1200px 600px at 90% -10%, #111827 0%, var(--bg) 60%);
+        color:var(--text);
+        line-height:1.6;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:24px}
+    header{padding: 16px 0;position:sticky; top:0; backdrop-filter:saturate(160%) blur(6px); background:rgba(11,12,16,0.6); border-bottom:1px solid rgba(255,255,255,0.06); z-index:10}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{font-size: 1.5rem;font-weight:800; letter-spacing: 0.2px}
+    .brand span {opacity:0.6; font-weight:600}
+    .links{display:flex; gap:16px; flex-wrap:wrap}
+
+    /* Top bar alignment fix */
+    header .nav { display: flex; align-items: center; }
+    .links {
+        display: flex;
+        align-items: center;   /* vertical centering */
+        gap: 18px;
+        margin-left: auto;     /* keep links on the right */
+        flex-wrap: wrap;
+    }
+    .links a {
+        font-size: 1.1rem;          
+        display: inline-flex;
+        align-items: center;
+        height: 42px;          /* uniform height */
+        padding: 0 14px;       /* horizontal padding only */
+        line-height: 1;
+        border-radius: 999px;
+    }
+
+    /* slightly stronger hover for links */
+    .links a:hover {
+        text-decoration: none;
+        opacity: 0.9;
+    }   
+
+    .links .chip {
+        background: var(--panel);
+        height: 42px;
+         border: 1px solid rgba(255, 255, 255, 0.264);
+         color: var(--muted);
+    }
+
+    .chip{display:inline-flex; align-items:center; gap:8px; background:var(--panel); border:1px solid rgba(255,255,255,0.08); padding:8px 12px; border-radius:999px; color:var(--muted)}
+
+    /* Hero */
+    .hero{padding:72px 0 24px; display:grid; grid-template-columns:1.2fr 0.8fr; gap:28px; align-items:center}
+    .hero h1{font-size:50px; line-height:1.1; margin:0 0 16px}
+    .hero p{color:var(--muted); margin:0 0 20px}
+    .hero .cta{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{background:var(--accent); color:#06121f; border:0; padding:12px 16px; border-radius:12px; font-weight:700; box-shadow:var(--shadow); cursor:pointer}
+    .btn.secondary{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.12)}
+    .card{background:var(--card); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .avatar{width:100%; aspect-ratio:1/1; border-radius:var(--radius); background:linear-gradient(135deg,#1f2937,#0b0c10); display:grid; place-items:center; color:var(--muted); border:1px dashed rgba(255,255,255,0.12)}
+
+    /* Sections */
+    section{padding:36px 0}
+    h2{font-size:34px; margin:0 0 12px}
+    .sub{color:var(--muted); margin:0 0 20px}
+
+    /* Grid */
+    .grid{display:grid; gap:16px}
+    .grid.projects{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width: 900px){
+        .hero{grid-template-columns:1fr; padding-top:48px}
+        .grid.projects{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width: 620px){
+        .grid.projects{grid-template-columns:1fr}
+        .hero h1{font-size:36px}
+    }
+
+    /* Project cards */
+    .project{padding:16px}
+    .project h3{margin:0 0 6px; font-size:18px}
+    .meta{display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:14px}
+    .project p{color:var(--muted)}
+    .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+    .tag{font-size:12px; padding:6px 10px; border-radius:999px; background:var(--panel); border:1px solid rgba(255,255,255,0.08); color:var(--muted)}
+
+    /* Small gallery inside a project card */
+    .project-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .project-gallery img { margin-bottom: 0; } /* remove extra gap from .project-img */
+    @media (max-width: 620px) {
+        .project-gallery { grid-template-columns: 1fr; }
+    }
+
+    /* Timeline */
+    .timeline{display:grid; gap:12px}
+    .item{padding:16px; border-left:3px solid var(--accent); background:var(--panel); border-radius:12px}
+    .item h4{margin:0 0 6px}
+    .item .when{color:var(--muted); font-size:14px}
+
+    /* Contact */
+    form{display:grid; gap:12px; margin-top:12px}
+    input, textarea{background:var(--panel); border:1px solid rgba(255,255,255,0.12); color:var(--text); padding:12px; border-radius:12px}
+    input:focus, textarea:focus{outline:2px solid var(--ring); border-color:transparent}
+    footer{padding:48px 0; color:var(--muted); text-align:center}
+
+    /* Project images */
+    .project-img {
+        width: 100%;
+        aspect-ratio: 16 / 9;          /* uniform card height */
+        object-fit: cover;             /* crop edges, no distortion */
+        border-radius: calc(var(--radius) - 4px);
+        margin-bottom: 12px;
+        border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* subtle hover lift */
+    .project.card:hover .project-img {
+        transform: translateY(-1px);
+        transition: transform 160ms ease;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;       /* keeps aspect ratio, crops edges */
+        border-radius: var(--radius);
+    }
+
+    .about-img {
+        width: 100%;
+        border-radius: var(--radius);
+        margin-top: 16px;
+        object-fit: cover; /* crops edges without distortion */
+        border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Prevent sticky header from covering anchored sections */
+    html { scroll-behavior: smooth; }
+    section { scroll-margin-top: 84px; } /* ~ header height */
+
+    /* Hide default cursor */
+    body {
+    cursor: none;
+    }
+
+    /* Custom cursor style */
+    .custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 22px;      /* base size */
+        height: 22px;
+        border: 2px solid var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(1);
+        transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+        z-index: 9999;
+
+        /* GLOW */
+        box-shadow:
+            0 0 8px rgba(96,165,250,.65),
+            0 0 18px rgba(96,165,250,.35),
+            0 0 36px rgba(96,165,250,.25);
+        background: radial-gradient(circle at center,
+            rgba(96,165,250,.15) 0 40%, rgba(96,165,250,0) 60%);
+        mix-blend-mode: screen;          /* makes glow pop on dark UI */
+        }
+
+    .cursor-dot {
+        position: fixed;
+        top: 0; left: 0;
+        width: 6px; height: 6px;
+        background: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(1);
+        transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+        z-index: 9999;
+        box-shadow:
+            0 0 10px rgba(96,165,250,.9),
+            0 0 22px rgba(96,165,250,.55);
+    }
+
+    /* Bigger + brighter when interacting */
+    .cursor-active {
+        transform: translate(-50%, -50%) scale(1.45);
+        box-shadow:
+            0 0 12px rgba(96,165,250,.9),
+            0 0 26px rgba(96,165,250,.6),
+            0 0 46px rgba(96,165,250,.45);
+    }
+
+    /* Respect users who prefer less motion */
+    @media (prefers-reduced-motion: reduce) {
+        .custom-cursor, .cursor-dot { transition: none; }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap nav">
+        <div class="brand">Mateo Wu Chen <span>· Portfolio</span></div>
+        <nav class="links">
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a class="chip" href="https://github.com/wuchenm" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+    </div>
+  </header>
+
+  <div class="custom-cursor"></div>
+  <div class="cursor-dot"></div>
+  
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <h1>Hello, I'm <span style="color:var(--accent)">Mateo</span> 👋</h1>
+        <p>
+          I build things at the intersection of hardware and software -
+          embedded systems, firmware, electronics, and PCB Design. 💻
+          Here's a selection of my work and what I'm up to!!! 😁
+        </p>
+        <div class="cta">
+          <a class="btn" href="#projects">See Projects</a>
+          <a class="btn secondary" href="Mateo Wu Chen - Resume.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
+        </div>
+        <div class="tags" style="margin-top:12px">
+          <span class="tag">C++ / Python</span>
+          <span class="tag">Embedded</span>
+          <span class="tag">PCB Design</span>
+          <span class="tag">Electronics</span>
+          <span class="tag">Hardware</span>
+        </div>
+      </div>
+      <div class="avatar card">
+        <img src="images/Me.jpeg" alt="Mateo Wu Chen" class="avatar-img" loading="lazy">
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2>Projects 🚀💡🤖</h2>
+        <p class="sub">Next up… a little gallery of fun, cool builds I’m proud of from my college years!!! 🚀</p>
+  
+        <div class="grid projects">
+  
+            <article class="project card">
+                <img src="images/Powerboard-sample.png" alt="TatumT1 Assistive Touch Hand prototype with RGB lighting" class="project-img" loading="lazy">
+                <h3>TatumT1 Assistive Touch Hand - Co-op</h3>
+                <div class="meta">Embedded Systems & Hardware Engineer Coop</div>
+                <p>
+                    Designed and built multiple PCBs which includes the robot’s power board, RGB lighting board, and button
+                    interface for deafblind users, also developing and testing the accompanying software.
+                </p>
+                <div class="tags">
+                    <span class="tag">Altium Design</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">Raspberry Pi</span>
+                    <span class="tag">Linux</span>
+                </div>
+            </article>
+  
+            <article class="project card">
+                <div class='project-gallery'>
+                    <img src="images/Prototype-Glasses.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/AR-Glasses.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/AR-Glasses1.jpeg" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/AR-Glasses2.jpeg" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                </div>
+                <h3>AI Glasses - Custom ESP32 Dev Board</h3>
+                <div class="meta">Undergraduate Research - SINRG Lab</div>
+                <p>
+                    Custom board with LDO, USB-UART, dual amps for speakers, ICS-43434 mic, and on-board charger circuit.
+                    Designed in Altium, assembled and currently being tested and adding extra features for the glasses.
+                </p>
+                <div class="tags">
+                    <span class="tag">KiCad</span>
+                    <span class="tag">Altium</span>
+                    <span class="tag">Arduino</span>
+                </div>
+            </article>
+  
+            <article class="project card">
+                <div class="project-gallery">
+                    <img src="images/Macropad-Front.png" alt="Custom 4-layer mechanical macropad PCB" class="project-img" loading="lazy">
+                    <img src="images/Macropad-Back.png" alt="Custom 4-layer mechanical macropad PCB" class="project-img" loading="lazy">
+                    <img src="images/Macropad-2D.png" alt="Custom 4-layer mechanical macropad PCB" class="project-img" loading="lazy">
+                    <img src="images/Macropad-2DB.png" alt="Custom 4-layer mechanical macropad PCB" class="project-img" loading="lazy">
+                </div>
+                <h3>Custom Mechanical MacroPad</h3>
+                <div class="meta">Personal</div>
+                <p>
+                    Designed and built a custom 4-layer mechanical macro pad PCB in Altium Designer, from schematic to
+                    layout and routing, integrating features like fill zones and EMI reduction for improved performance
+                </p>
+                <div class="tags">
+                    <span class="tag">Altium Designer</span>
+                </div>
+            </article>
+  
+            <article class="project card">
+                <div class='project-gallery'>
+                    <img src="images/Pill-Pal-1.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Pil-pal-2.jpg" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Pil-pal-3.jpg" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Pil-pal-4.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                </div>
+                <h3>Pill-Pal-4-Life Smart Pill Cap Dispenser</h3>
+                <div class="meta">Forge Product Development Student Club</div>
+                <p>
+                    I worked on a compact, kid-friendly medication reminder robot with a touchscreen that makes taking
+                    medicine more fun and easy. I set up a fingerprint sensor with C++ on an Arduino Mega so it only dispenses
+                     pills securely and on schedule, and I also helped with the electronics and LED interaction design.
+                </p>
+                <div class="tags">
+                    <span class="tag">Arduino</span>
+                    <span class="tag">Breadboards</span>
+                    <span class="tag">Electronics</span>
+                </div>
+            </article>
+  
+            <article class="project card">
+                <div class='project-gallery'>
+                    <img src="images/Pokemon1.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Pokemon2.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Pokemon3.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Pokemon4.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                </div>
+                <h3>Python Pokemon Combat Game</h3>
+                <div class="meta">Computing Fundamentals for Engineers - EECE2140</div>
+                <p>
+                    Created in Python a fully functional Pokémon combat game where users can select from three different Pokémon
+                    to battle against a randomly chosen opponent. Also incorporated Object Oriented Programming and PokeAPI,
+                    background music and sound effects to enrich overall gameplay, alongside intuitive UI design and user-friendly experience.
+                </p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">OOP</span>
+                </div>
+            </article>
+  
+            <article class="project card">
+                <div class='project-gallery'>
+                    <img src="images/Pasta1.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Pasta2.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Pasta3.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                </div>
+                <h3>Automated Pasta Machine</h3>
+                <div class="meta">Forge Product Development Student Club</div>
+                <p>
+                    Designed the CAD model for an automated pasta machine as part of the Forge Fall 2023 Product Development Team. We utilized laser cutting, 3D printing to build the entire product.
+                    The device is a home appliance that functions similarly to a coffee machine, allowing users to select the type of pasta and cooking duration, making it convenient and an user-friendly solution for cooking pasta at home.
+                </p>
+                <div class="tags">
+                    <span class="tag">SolidWorks</span>
+                    <span class="tag">Onshape</span>
+                    <span class="tag">3D Printing</span>
+                    <span class="tag">Laser cutting</span>
+                    <span class="tag">Arduino</span>
+                </div>
+            </article>
+  
+            <article class="project card">
+                <div class='project-gallery'>
+                    <img src="images/Arcade1.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Arcade2.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Arcade3.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                    <img src="images/Arcade4.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+                </div>
+                <h3>Mini Arcade Games</h3>
+                <div class="meta">Fundamentals of Computer Science</div>
+                <p>
+                    Created in Java with Object Oriented Programming some mini arcade games. For example Feeding Frenzy, 15Puzzle,
+                    Bridgit and Tetris.
+                </p>
+                <div class="tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">Git</span>
+                </div>
+            </article>
+
+            <article class="project card">
+                <div class='project-gallery'>
+                    <img src="images/website.webp" alt="Website" class="project-img" loading="lazy">
+                </div>
+                <h3>Website Portfolio</h3>
+                <div class="meta">Portfolio</div>
+                <p>
+                    Created in HTML and saved on Github :D
+                </p>
+                <div class="tags">
+                    <span class="tag">HTML / CSS</span>
+                    <span class="tag">Git</span>
+                </div>
+            </article>
+  
+            <article class="project card">
+                <div class='project-gallery'>
+                    <img src="images/drone.png" alt="Drone" class="project-img" loading="lazy">
+                </div>
+                <h3>Drone??? </h3>
+                <div class="meta">Coming Soon</div>
+                <p>
+                        WIP 🚧🏗️🛠️👷
+                </p>
+                <div class="tags">
+                    <span class="tag">HTML / CSS</span>
+                    <span class="tag">Git</span>
+                </div>
+            </article>
+
+        </div>
+  </section>
+  
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <h2>Experience 📚 ☕︎ 🎧</h2>
+      <p class="sub">Roles, internships, and highlights. 💼⚡</p>
+      <div class="timeline">
+        <div class="item">
+          <h4>Embedded Systems & Hardware Engineer Co-op</h4>
+          <div class="when">January 2025 — July 2025 · Watertown, MA</div>
+          <p>   
+                I designed and tested PCBs in Altium Designer for the TatumT1 Assistive Touch Hand,
+                including power and button boards, plus a custom RGB lighting system that improved 
+                feedback and helped achieve a 100% prototype pass rate. I migrated PWM control to gpiod 
+                on the Raspberry Pi 5, programmed in Python and C#, integrated I2C devices, and optimized 
+                hardware–software interaction for an 80% faster response. I also helped assemble the robot and ran 
+                electrical tests with a multimeter and oscilloscope, catching 95% of faults before final testing.
+            </p>
+        </div>
+        <div class="item">
+          <h4>Undergraduate Research Assistant - Spatial Intelligence Research Group</h4>
+          <div class="when">January 2025 — Present · Boston, MA</div>
+          <p>
+                I helped develop a prototype AI glasses system by designing custom 4-layer PCBs in Altium Designer, 
+                working on schematics and circuits for power regulation and ESP32 interfaces, and using EMI reduction 
+                techniques to improve reliability. I also evaluated hardware needs, optimized component layouts for wearable 
+                integration, and supported sensor integration for real-time AI features.
+            </p>
+        </div>
+        <div class="item">
+            <h4>Undergraduate Research Assistant - NUCAR Research Group</h4>
+            <div class="when">January 2025 — Present · Boston, MA</div>
+            <p>
+                Boosted algorithm performance by implementing parallel computing with Pthreads in C++,
+                improving data synchronization and cutting runtime for large datasets by ~80%. Used the Discovery Cluster
+                for high-performance computing, writing Slurm scripts to allocate GPU resources and benchmark precision calculations.
+                Developed GPU-accelerated matrix multiplication in CUDA C++, achieving up to 1000× speedups over CPU methods, and optimized
+                multi-threaded CPU tasks with OpenMP.
+            </p>
+        </div>
+        <div class="item">
+            <h4>Global Student Ambassador - Northeastern University Immerse Program</h4>
+            <div class="when">August 2022 — May 2025 · Boston, MA</div>
+            <p>
+                Helped international students adapt to American university life by serving as a liaison with the university, 
+                organizing engagement events, and leading orientation programs. Collected and managed student information, 
+                maintained records, and facilitated group discussions and community activities.
+            </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <h2>About 🧑🏻‍💼</h2>
+        <p class="sub">
+            A quick look at who I am, what I do, and what drives my work.
+        </p>
+    
+        <div class="grid two">
+            <div class="card" style="padding:16px">
+                <h3>Who I Am 👨🏻‍💻</h3>
+                <p>
+                    I’m a 4th Year Computer Engineering undergraduate student with a passion for creating innovative solutions 
+                    that bridge the gap between hardware and software. Overall, my work spans embedded systems, PCB design, 
+                    and electronics.
+                </p>
+                <p>
+                    Outside of engineering, I’m an explorer at heart — I love walking around and discovering new places.
+                    Indoors, you’ll find me playing guitar, reading, staying active, building Gundam plastic models (GUNPLA), tinkering with PCs,
+                    and geeking out over mechanical keyboards (I’ve built four custom ones so far).
+                </p>
+                <img src="images/Me2.jpeg" alt="Mateo Wu Chen" class="about-img">
+            </div>
+      
+            <div class="card" style="padding:16px">
+            <h3>Skills & Tools 📚</h3>
+            <ul>
+                <li>
+                    <strong>Hardware & Electronics:</strong>
+                    <ul>
+                        <li>PCB Design (Altium Designer, KiCad)</li>
+                        <li>Raspberry Pi</li>
+                        <li>Arduino</li>
+                        <li>Digital Multimeter</li>
+                        <li>Oscilloscope</li>
+                        <li>Soldering</li>
+                        <li>FPGAs</li>
+                        <li>Lasercutting</li>
+                        <li>3D Printing</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Software:</strong>
+                    <ul>
+                        <li>Altium Designer</li>
+                        <li>KiCad</li>
+                        <li>C / C# / C++</li>
+                        <li>Python</li>
+                        <li>SystemVerilog</li>
+                        <li>MATLAB</li>
+                        <li>LTspice</li>
+                        <li>Linux</li>
+                        <li>Git</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Languages</strong>
+                    <ul>
+                        <li>Native Spanish</li>
+                        <li>Fluent English</li>
+                        <li>Basic Mandarin</li>
+                    </ul>
+                </li>
+            </ul>
+            </div>
+    
+      </div>
+    </section>
+  
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p class="sub">Want to collaborate or chat? Drop a note.</p>
+        <form name="contact" onsubmit="return sendMsg(event)">
+        <input name="name" placeholder="Your name" required />
+        <input name="email" type="email" placeholder="Email" required />
+        <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+        <button class="btn" type="submit">Send</button>
+        <p id="sent" style="display:none; color:#86efac">Thanks! I’ll get back to you soon.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="y"></span> Mateo Wu Chen · Built from scratch with HTML/CSS/JS</div>
+  </footer>
+
+  <script>
+    // Simple client‑side handler (replace with a real backend or Formspree)
+    function sendMsg(e){
+      e.preventDefault();
+      const f = e.target;
+      const data = Object.fromEntries(new FormData(f).entries());
+      console.log("Contact form submission", data);
+      f.reset();
+      document.getElementById('sent').style.display = 'block';
+      return false;
+    }
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+
+<script>
+    const ring = document.querySelector('.custom-cursor');
+    const dot  = document.querySelector('.cursor-dot');
+    
+    function moveTo(e){
+      const x = `${e.clientX}px`, y = `${e.clientY}px`;
+      ring.style.left = dot.style.left = x;
+      ring.style.top  = dot.style.top  = y;
+    }
+    document.addEventListener('mousemove', moveTo);
+    
+    // grow/brighten on click
+    document.addEventListener('mousedown', () => {
+      ring.classList.add('cursor-active');
+      dot.style.transform = 'translate(-50%, -50%) scale(1.3)';
+    });
+    document.addEventListener('mouseup', () => {
+      ring.classList.remove('cursor-active');
+      dot.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+    
+    // also react on interactive elements
+    document.querySelectorAll('a, button, .btn, .chip').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.classList.add('cursor-active');
+        dot.style.transform = 'translate(-50%, -50%) scale(1.3)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.classList.remove('cursor-active');
+        dot.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+    </script>
+    
+    
+
+</body>
+</html>
