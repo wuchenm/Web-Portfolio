@@ -1,6 +1,7 @@
 # 🌐 Mateo Wu Chen — Web Portfolio
 
-Hi there!!! :D
+Hi there!!!
+
 So you are curious about me, don't you?
 No worries at all, because you are in the right place!! :D
 
