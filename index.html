@@ -1,648 +1,4340 @@
 <!DOCTYPE html>
-<html lang="en">  <!--language-->
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" /> <!--tells the browser how to interpret the text -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" /> <!--mobile scaling response-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Mateo Wu Chen Personal Portfolio</title>
-    <meta name="description" content="Personal portfolio about myself to showcase my projects, experience, and contact." />
+
+    <meta
+        name="description"
+        content="Personal engineering portfolio of Mateo Wu Chen showcasing hardware, embedded systems, PCB design, robotics, and software projects."
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
-    :root {
-        --bg: #0b0c10;
-        --panel: #12141a;
-        --text: #e5e7eb;
-        --muted: #9ca3af;
-        --accent: #60a5fa;
-        --ring: rgba(96,165,250,0.45);
-        --card: #0f1116;
-        --radius: 16px;
-        --shadow: 0 10px 30px rgba(0,0,0,0.35);
-        --maxw: 1080px;
-    }
-    *{box-sizing:border-box}
-    html, body {
-        background-color: #06121f;
-        color: var(--text);
-        min-height: 100%;
-    }
-    body{
-        margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-        background:
-            radial-gradient(1200px 600px at 10% 0%, #0f172a 0%, var(--bg) 50%),
-            radial-gradient(1200px 600px at 90% -10%, #111827 0%, var(--bg) 60%);
-        color:var(--text);
-        line-height:1.6;
-    }
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:var(--maxw); margin:0 auto; padding:24px}
-    header{padding: 16px 0;position:sticky; top:0; backdrop-filter:saturate(160%) blur(6px); background:rgba(11,12,16,0.6); border-bottom:1px solid rgba(255,255,255,0.06); z-index:10}
-    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px}
-    .brand{font-size: 1.5rem;font-weight:800; letter-spacing: 0.2px}
-    .brand span {opacity:0.6; font-weight:600}
-    .links{display:flex; gap:16px; flex-wrap:wrap}
 
-    /* Top bar alignment fix */
-    header .nav { display: flex; align-items: center; }
-    .links {
-        display: flex;
-        align-items: center;   /* vertical centering */
-        gap: 18px;
-        margin-left: auto;     /* keep links on the right */
-        flex-wrap: wrap;
-    }
-    .links a {
-        font-size: 1.1rem;          
-        display: inline-flex;
-        align-items: center;
-        height: 42px;          /* uniform height */
-        padding: 0 14px;       /* horizontal padding only */
-        line-height: 1;
-        border-radius: 999px;
-    }
+        /* =========================================================
+           GLOBAL VARIABLES
+           ========================================================= */
 
-    /* slightly stronger hover for links */
-    .links a:hover {
-        text-decoration: none;
-        opacity: 0.9;
-    }   
-
-    .links .chip {
-        background: var(--panel);
-        height: 42px;
-         border: 1px solid rgba(255, 255, 255, 0.264);
-         color: var(--muted);
-    }
-
-    .chip{display:inline-flex; align-items:center; gap:8px; background:var(--panel); border:1px solid rgba(255,255,255,0.08); padding:8px 12px; border-radius:999px; color:var(--muted)}
-
-    /* Hero */
-    .hero{padding:72px 0 24px; display:grid; grid-template-columns:1.2fr 0.8fr; gap:28px; align-items:center}
-    .hero h1{font-size:50px; line-height:1.1; margin:0 0 16px}
-    .hero p{color:var(--muted); margin:0 0 20px}
-    .hero .cta{display:flex; gap:12px; flex-wrap:wrap}
-    .btn{background:var(--accent); color:#06121f; border:0; padding:12px 16px; border-radius:12px; font-weight:700; box-shadow:var(--shadow); cursor:pointer}
-    .btn.secondary{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.12)}
-    .card{background:var(--card); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); box-shadow:var(--shadow)}
-    .avatar{width:100%; aspect-ratio:1/1; border-radius:var(--radius); background:linear-gradient(135deg,#1f2937,#0b0c10); display:grid; place-items:center; color:var(--muted); border:1px dashed rgba(255,255,255,0.12)}
-
-    /* Sections */
-    section{padding:36px 0}
-    h2{font-size:34px; margin:0 0 12px}
-    .sub{color:var(--muted); margin:0 0 20px}
-
-    /* Grid */
-    .grid{display:grid; gap:16px}
-    .grid.projects{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width: 900px){
-        .hero{grid-template-columns:1fr; padding-top:48px}
-        .grid.projects{grid-template-columns:repeat(2,minmax(0,1fr))}
-    }
-    @media (max-width: 620px){
-        .grid.projects{grid-template-columns:1fr}
-        .hero h1{font-size:36px}
-    }
-
-    /* Project cards */
-    .project{padding:16px}
-    .project h3{margin:0 0 6px; font-size:18px}
-    .meta{display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:14px}
-    .project p{color:var(--muted)}
-    .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
-    .tag{font-size:12px; padding:6px 10px; border-radius:999px; background:var(--panel); border:1px solid rgba(255,255,255,0.08); color:var(--muted)}
-
-    /* Small gallery inside a project card */
-    .project-gallery {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin-bottom: 12px;
-    }
-
-    .project-gallery img { margin-bottom: 0; } /* remove extra gap from .project-img */
-    @media (max-width: 620px) {
-        .project-gallery { grid-template-columns: 1fr; }
-    }
-
-    /* Timeline */
-    .timeline{display:grid; gap:12px}
-    .item{padding:16px; border-left:3px solid var(--accent); background:var(--panel); border-radius:12px}
-    .item h4{margin:0 0 6px}
-    .item .when{color:var(--muted); font-size:14px}
-
-    /* Contact */
-    form{display:grid; gap:12px; margin-top:12px}
-    input, textarea{background:var(--panel); border:1px solid rgba(255,255,255,0.12); color:var(--text); padding:12px; border-radius:12px}
-    input:focus, textarea:focus{outline:2px solid var(--ring); border-color:transparent}
-    footer{padding:48px 0; color:var(--muted); text-align:center}
-
-    /* Project images */
-    .project-img {
-        width: 100%;
-        aspect-ratio: 16 / 9;          /* uniform card height */
-        object-fit: cover;             /* crop edges, no distortion */
-        border-radius: calc(var(--radius) - 4px);
-        margin-bottom: 12px;
-        border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    /* subtle hover lift */
-    .project.card:hover .project-img {
-        transform: translateY(-1px);
-        transition: transform 160ms ease;
-    }
-
-    .avatar-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;       /* keeps aspect ratio, crops edges */
-        border-radius: var(--radius);
-    }
-
-    .about-img {
-        width: 100%;
-        border-radius: var(--radius);
-        margin-top: 16px;
-        object-fit: cover; /* crops edges without distortion */
-        border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    /* Prevent sticky header from covering anchored sections */
-    html { scroll-behavior: smooth; }
-    section { scroll-margin-top: 84px; } /* ~ header height */
-
-    /* Hide default cursor */
-    body {
-    cursor: none;
-    }
-
-    /* Custom cursor style */
-    .custom-cursor {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 22px;      /* base size */
-        height: 22px;
-        border: 2px solid var(--accent);
-        border-radius: 50%;
-        pointer-events: none;
-        transform: translate(-50%, -50%) scale(1);
-        transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
-        z-index: 9999;
-
-        /* GLOW */
-        box-shadow:
-            0 0 8px rgba(96,165,250,.65),
-            0 0 18px rgba(96,165,250,.35),
-            0 0 36px rgba(96,165,250,.25);
-        background: radial-gradient(circle at center,
-            rgba(96,165,250,.15) 0 40%, rgba(96,165,250,0) 60%);
-        mix-blend-mode: screen;          /* makes glow pop on dark UI */
+        :root {
+            --bg: #0b0c10;
+            --panel: #12141a;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --accent: #60a5fa;
+            --ring: rgba(96,165,250,0.45);
+            --card: #0f1116;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.35);
+            --maxw: 1080px;
         }
 
-    .cursor-dot {
-        position: fixed;
-        top: 0; left: 0;
-        width: 6px; height: 6px;
-        background: var(--accent);
-        border-radius: 50%;
-        pointer-events: none;
-        transform: translate(-50%, -50%) scale(1);
-        transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
-        z-index: 9999;
-        box-shadow:
-            0 0 10px rgba(96,165,250,.9),
-            0 0 22px rgba(96,165,250,.55);
-    }
 
-    /* Bigger + brighter when interacting */
-    .cursor-active {
-        transform: translate(-50%, -50%) scale(1.45);
-        box-shadow:
-            0 0 12px rgba(96,165,250,.9),
-            0 0 26px rgba(96,165,250,.6),
-            0 0 46px rgba(96,165,250,.45);
-    }
+        /* =========================================================
+           BASE
+           ========================================================= */
 
-    /* Respect users who prefer less motion */
-    @media (prefers-reduced-motion: reduce) {
-        .custom-cursor, .cursor-dot { transition: none; }
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-  </style>
+        html,
+        body {
+            background-color: #06121f;
+            color: var(--text);
+            min-height: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    1200px 600px at 10% 0%,
+                    #0f172a 0%,
+                    var(--bg) 50%
+                ),
+                radial-gradient(
+                    1200px 600px at 90% -10%,
+                    #111827 0%,
+                    var(--bg) 60%
+                );
+
+            color: var(--text);
+            line-height: 1.6;
+
+            cursor: none;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .wrap {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+
+
+        /* =========================================================
+           DISPLAY TYPOGRAPHY — IBM PLEX SANS
+           ========================================================= */
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand,
+        nav a,
+        .btn,
+        .hero-eyebrow,
+        .project-badge,
+        .experience-company,
+        .experience-role {
+            font-family: "IBM Plex Sans", Inter, system-ui, sans-serif;
+        }
+
+        .brand,
+        h1,
+        h2,
+        h3 {
+            letter-spacing: -0.02em;
+        }
+
+        nav a {
+            font-weight: 500;
+            letter-spacing: 0.005em;
+        }
+
+        .btn {
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           ANIMATED PCB BACKGROUND
+           ========================================================= */
+
+        .pcb-background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .pcb-background svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .pcb-trace {
+            fill: none;
+            stroke: rgba(96,165,250,0.13);
+            stroke-width: 1.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .pcb-via {
+            fill: rgba(11,12,16,0.88);
+            stroke: rgba(96,165,250,0.20);
+            stroke-width: 1.4;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .pcb-pad {
+            fill: rgba(96,165,250,0.055);
+            stroke: rgba(96,165,250,0.17);
+            stroke-width: 1.2;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .pcb-terminal {
+            fill: rgba(11,12,16,0.94);
+            stroke: rgba(96,165,250,0.24);
+            stroke-width: 1.5;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .pcb-terminal-core {
+            fill: rgba(96,165,250,0.10);
+            stroke: rgba(147,197,253,0.16);
+            stroke-width: 1;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .pcb-testpad {
+            fill: rgba(96,165,250,0.055);
+            stroke: rgba(96,165,250,0.22);
+            stroke-width: 1.3;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .pcb-signal {
+            fill: none;
+            stroke: rgba(96,165,250,0.68);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 34 760;
+            vector-effect: non-scaling-stroke;
+            filter: url(#pcb-glow);
+            animation: pcbSignal 10s linear infinite;
+        }
+
+        .pcb-signal.signal-2 {
+            animation-duration: 13s;
+            animation-delay: -5s;
+            opacity: 0.75;
+        }
+
+        .pcb-signal.signal-3 {
+            animation-duration: 15s;
+            animation-delay: -9s;
+            opacity: 0.58;
+        }
+
+        .pcb-signal.signal-4 {
+            animation-duration: 12s;
+            animation-delay: -2s;
+            opacity: 0.48;
+        }
+
+        .pcb-active-via {
+            fill: rgba(96,165,250,0.32);
+            stroke: rgba(147,197,253,0.50);
+            filter: url(#pcb-via-glow);
+            animation: pcbViaPulse 5.5s ease-in-out infinite;
+        }
+
+        .pcb-active-via.via-2 {
+            animation-delay: -1.8s;
+        }
+
+        .pcb-active-via.via-3 {
+            animation-delay: -3.7s;
+        }
+
+        @keyframes pcbSignal {
+            from {
+                stroke-dashoffset: 0;
+            }
+
+            to {
+                stroke-dashoffset: -794;
+            }
+        }
+
+        @keyframes pcbViaPulse {
+            0%, 78%, 100% {
+                opacity: 0.16;
+            }
+
+            84% {
+                opacity: 0.85;
+            }
+
+            91% {
+                opacity: 0.28;
+            }
+        }
+
+        body > header,
+        body > main,
+        body > footer,
+        body > .custom-cursor,
+        body > .cursor-dot,
+        body > .lightbox {
+            position: relative;
+        }
+
+        body > header {
+            position: sticky;
+        }
+
+        body > main,
+        body > footer {
+            z-index: 1;
+        }
+
+        body > header {
+            z-index: 10;
+        }
+
+        body > .custom-cursor,
+        body > .cursor-dot {
+            position: fixed;
+            z-index: 10000;
+        }
+
+        body > .lightbox {
+            position: fixed;
+            z-index: 9999;
+        }
+
+        /* =========================================================
+           HEADER / NAVIGATION
+           ========================================================= */
+
+        header {
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+
+            backdrop-filter: saturate(160%) blur(6px);
+
+            background: rgba(11,12,16,0.6);
+
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+
+            z-index: 10;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+        }
+
+        .brand span {
+            opacity: 0.6;
+            font-weight: 600;
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
+
+            gap: 18px;
+
+            margin-left: auto;
+
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            font-size: 1.1rem;
+
+            display: inline-flex;
+            align-items: center;
+
+            height: 42px;
+
+            padding: 0 14px;
+
+            line-height: 1;
+
+            border-radius: 999px;
+        }
+
+        .links a:hover {
+            text-decoration: none;
+            opacity: 0.9;
+        }
+
+        .links .chip {
+            background: var(--panel);
+
+            height: 42px;
+
+            border: 1px solid rgba(255,255,255,0.264);
+
+            color: var(--muted);
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+
+            gap: 8px;
+
+            background: var(--panel);
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            padding: 8px 12px;
+
+            border-radius: 999px;
+
+            color: var(--muted);
+        }
+
+
+        /* =========================================================
+           HERO
+           ========================================================= */
+
+        .hero {
+            padding: 72px 0 24px;
+
+            display: grid;
+
+            grid-template-columns: 1.2fr 0.8fr;
+
+            gap: 28px;
+
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            line-height: 1.1;
+
+            margin: 0 0 16px;
+        }
+
+        .hero p {
+            color: var(--muted);
+
+            margin: 0 0 20px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+        }
+
+        .hero-eyebrow::before {
+            content: "";
+            width: 24px;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(96,165,250,0.45);
+        }
+
+        .hero-copy {
+            max-width: 720px;
+            font-size: 17px;
+            line-height: 1.65;
+        }
+
+        .hero-copy strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .resume-btn {
+            background: #4b4f58;
+            border-color: #5f646e;
+            color: #ffffff;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.20);
+        }
+
+        .resume-btn:hover {
+            background: #5a5f69;
+            border-color: #707681;
+        }
+
+        .hero-availability {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .hero-availability-dot {
+            width: 7px;
+            height: 7px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: #86efac;
+            box-shadow: 0 0 10px rgba(134,239,172,0.65);
+        }
+
+        .hero .cta {
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--accent);
+
+            color: #06121f;
+
+            border: 0;
+
+            padding: 12px 16px;
+
+            border-radius: 12px;
+
+            font-weight: 700;
+
+            box-shadow: var(--shadow);
+
+            cursor: pointer;
+        }
+
+        .btn.secondary {
+            background: transparent;
+
+            color: var(--text);
+
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        /* Hero resume button — placed after .btn.secondary so it wins */
+        .btn.secondary.resume-btn {
+            background: #9ca3af;
+            border: 1px solid #9ca3af;
+            color: #0b0c10;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.20);
+        }
+
+        .btn.secondary.resume-btn:hover {
+            background: #b4bac4;
+            border-color: #b4bac4;
+            color: #0b0c10;
+            text-decoration: none;
+        }
+
+        .card {
+            background: var(--card);
+
+            border: 1px solid rgba(255,255,255,0.06);
+
+            border-radius: var(--radius);
+
+            box-shadow: var(--shadow);
+        }
+
+        .avatar {
+            width: 100%;
+
+            aspect-ratio: 1 / 1;
+
+            border-radius: var(--radius);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1f2937,
+                    #0b0c10
+                );
+
+            display: grid;
+
+            place-items: center;
+
+            color: var(--muted);
+
+            border: 1px dashed rgba(255,255,255,0.12);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            border-radius: var(--radius);
+        }
+
+
+        /* =========================================================
+           SECTIONS
+           ========================================================= */
+
+        section {
+            padding: 36px 0;
+
+            scroll-margin-top: 84px;
+        }
+
+        h2 {
+            font-size: 34px;
+
+            margin: 0 0 12px;
+        }
+
+        /* Larger main Projects heading */
+        #projects > h2 {
+            font-size: 42px;
+            text-align: center;
+        }
+
+        .sub {
+            color: var(--muted);
+
+            margin: 0 0 20px;
+        }
+
+        /* Center the Projects and Currently Building descriptions */
+        #projects > .sub {
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           GENERAL GRID
+           ========================================================= */
+
+        .grid {
+            display: grid;
+
+            gap: 16px;
+        }
+
+        .grid.projects {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .grid.two {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+
+        /* =========================================================
+           PROJECT CARDS
+           ========================================================= */
+
+        .project {
+            padding: 16px;
+        }
+
+        .project h3 {
+            margin: 0 0 6px;
+
+            font-size: 18px;
+        }
+
+        .meta {
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            color: var(--muted);
+
+            font-size: 14px;
+        }
+
+        .project p {
+            color: var(--muted);
+        }
+
+        .tags {
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            margin-top: 8px;
+        }
+
+        .tag {
+            font-size: 12px;
+
+            padding: 6px 10px;
+
+            border-radius: 999px;
+
+            background: var(--panel);
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            color: var(--muted);
+        }
+
+        .project-img {
+            width: 100%;
+
+            aspect-ratio: 16 / 9;
+
+            object-fit: cover;
+
+            border-radius: calc(var(--radius) - 4px);
+
+            margin-bottom: 12px;
+
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .project.card:hover .project-img {
+            transform: translateY(-1px);
+
+            transition: transform 160ms ease;
+        }
+
+
+        /* =========================================================
+           PROJECT IMAGE GALLERY
+           ========================================================= */
+
+        .project-gallery {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 8px;
+
+            margin-bottom: 12px;
+        }
+
+        .project-gallery img {
+            margin-bottom: 0;
+        }
+
+
+        /* =========================================================
+           FEATURED PROJECTS
+           ========================================================= */
+
+        .project-section-title {
+            margin: 30px 0 14px;
+
+            font-size: 30px;
+        }
+
+        .grid.featured-projects {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            gap: 20px;
+
+            margin-bottom: 44px;
+        }
+
+        .featured-project {
+            padding: 18px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition:
+                transform 180ms ease,
+                border-color 180ms ease,
+                box-shadow 180ms ease;
+        }
+
+        .featured-project:hover {
+            transform: translateY(-3px);
+
+            border-color: rgba(96,165,250,0.45);
+
+            box-shadow:
+                0 14px 36px rgba(0,0,0,0.42);
+        }
+
+        .featured-project h3 {
+            font-size: 21px;
+
+            margin-top: 4px;
+        }
+
+        .featured-project .meta {
+            color: var(--accent);
+
+            font-weight: 600;
+        }
+
+        .project-status {
+            display: inline-flex;
+
+            align-items: center;
+
+            margin-bottom: 8px;
+
+            padding: 5px 9px;
+
+            border-radius: 999px;
+
+            background: rgba(96,165,250,0.10);
+
+            border: 1px solid rgba(96,165,250,0.22);
+
+            color: var(--accent);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.06em;
+
+            text-transform: uppercase;
+        }
+
+        .project-placeholder {
+            width: 100%;
+
+            aspect-ratio: 16 / 9;
+
+            display: grid;
+
+            place-items: center;
+
+            text-align: center;
+
+            padding: 20px;
+
+            margin-bottom: 12px;
+
+            border-radius: calc(var(--radius) - 4px);
+
+            border: 1px dashed rgba(96,165,250,0.30);
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(96,165,250,0.10),
+                    rgba(255,255,255,0.015)
+                );
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        
+
+        /* =========================================================
+           WORK IN PROGRESS PROJECTS
+           ========================================================= */
+
+        .grid.wip-projects {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            gap: 20px;
+
+            margin-bottom: 44px;
+        }
+
+        .wip-project {
+            padding: 18px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-color: rgba(96,165,250,0.18);
+
+            transition:
+                transform 180ms ease,
+                border-color 180ms ease,
+                box-shadow 180ms ease;
+        }
+
+        .wip-project:hover {
+            transform: translateY(-3px);
+
+            border-color: rgba(96,165,250,0.45);
+
+            box-shadow:
+                0 14px 36px rgba(0,0,0,0.42);
+        }
+
+        .wip-project::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--accent),
+                    transparent
+                );
+
+            opacity: 0.65;
+        }
+
+        .wip-project h3 {
+            font-size: 21px;
+
+            margin-top: 4px;
+        }
+
+        .wip-project .meta {
+            color: var(--accent);
+
+            font-weight: 600;
+        }
+
+        .wip-placeholder {
+            width: 100%;
+
+            aspect-ratio: 16 / 9;
+
+            display: grid;
+
+            place-items: center;
+
+            text-align: center;
+
+            padding: 20px;
+
+            margin-bottom: 12px;
+
+            border-radius: calc(var(--radius) - 4px);
+
+            border: 1px dashed rgba(96,165,250,0.30);
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(96,165,250,0.10),
+                    rgba(255,255,255,0.015)
+                );
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        .wip-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 8px;
+            padding: 5px 9px;
+            border-radius: 999px;
+
+            background: rgba(249, 115, 22, 0.12);
+            border: 1px solid rgba(249, 115, 22, 0.35);
+            color: #fb923c;
+
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .wip-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--accent);
+
+            box-shadow:
+                0 0 10px rgba(96,165,250,0.9);
+        }
+
+
+        /* =========================================================
+           EXPERIENCE TIMELINE
+           ========================================================= */
+
+        .timeline {
+            position: relative;
+            display: grid;
+            gap: 22px;
+            margin-top: 30px;
+            padding-left: 34px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 9px;
+            width: 2px;
+            background: linear-gradient(
+                to bottom,
+                rgba(96,165,250,0.85),
+                rgba(96,165,250,0.18)
+            );
+        }
+
+        .item {
+            position: relative;
+            padding: 20px;
+            background: rgba(18,20,26,0.88);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            transition:
+                transform 180ms ease,
+                border-color 180ms ease,
+                box-shadow 180ms ease;
+        }
+
+        .item::before {
+            content: "";
+            position: absolute;
+            left: -33px;
+            top: 24px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid #0b0c10;
+            box-shadow:
+                0 0 0 3px rgba(96,165,250,0.16),
+                0 0 16px rgba(96,165,250,0.55);
+            transition:
+                transform 180ms ease,
+                box-shadow 180ms ease;
+        }
+
+        .item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(96,165,250,0.38);
+            box-shadow: 0 14px 36px rgba(0,0,0,0.42);
+        }
+
+        .item:hover::before {
+            transform: scale(1.15);
+            box-shadow:
+                0 0 0 4px rgba(96,165,250,0.18),
+                0 0 24px rgba(96,165,250,0.85);
+        }
+
+        .experience-company {
+            margin: 0 0 3px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .item h4 {
+            margin: 0 0 10px;
+            font-size: 21px;
+            line-height: 1.3;
+        }
+
+        .experience-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .experience-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: rgba(96,165,250,0.08);
+            border: 1px solid rgba(96,165,250,0.18);
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .item p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .experience-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .experience-current {
+            border-color: rgba(96,165,250,0.20);
+            background:
+                radial-gradient(
+                    700px 260px at 10% 0%,
+                    rgba(96,165,250,0.08),
+                    transparent 55%
+                ),
+                rgba(18,20,26,0.90);
+        }
+
+        .current-semester-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .current-role {
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(11,12,16,0.46);
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .current-role h5 {
+            margin: 0 0 4px;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .current-role .role-name {
+            margin-bottom: 9px;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .current-role p {
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           ABOUT
+           ========================================================= */
+
+        .about-img {
+            width: 100%;
+
+            border-radius: var(--radius);
+
+            margin-top: 16px;
+
+            object-fit: cover;
+
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+
+
+
+        /* =========================================================
+           PROJECT IMAGE LIGHTBOX
+           ========================================================= */
+
+        .project img {
+            cursor: zoom-in;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            background: rgba(3,5,10,0.92);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 180ms ease, visibility 180ms ease;
+        }
+
+        .lightbox.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: min(1100px, 92vw);
+            height: min(820px, 88vh);
+        }
+
+        .lightbox-image {
+            display: block;
+            max-width: 100%;
+            max-height: calc(88vh - 74px);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 14px;
+            box-shadow: 0 24px 70px rgba(0,0,0,0.58);
+            transform: scale(0.97);
+            transition: transform 180ms ease;
+        }
+
+        .lightbox.open .lightbox-image {
+            transform: scale(1);
+        }
+
+        .lightbox-caption {
+            min-height: 24px;
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .lightbox-close,
+        .lightbox-nav {
+            position: absolute;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255,255,255,0.14);
+            background: rgba(15,17,22,0.82);
+            color: var(--text);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+            transition:
+                transform 150ms ease,
+                border-color 150ms ease,
+                background 150ms ease;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-nav:hover {
+            transform: scale(1.06);
+            border-color: rgba(96,165,250,0.48);
+            background: rgba(25,29,38,0.96);
+        }
+
+        .lightbox-close {
+            top: 18px;
+            right: 18px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 25px;
+            line-height: 1;
+        }
+
+        .lightbox-nav {
+            top: 50%;
+            width: 48px;
+            height: 58px;
+            border-radius: 13px;
+            font-size: 28px;
+            transform: translateY(-50%);
+        }
+
+        .lightbox-nav:hover {
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .lightbox-prev {
+            left: 18px;
+        }
+
+        .lightbox-next {
+            right: 18px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            top: 22px;
+            left: 22px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(15,17,22,0.72);
+            border: 1px solid rgba(255,255,255,0.10);
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        body.lightbox-open {
+            overflow: hidden;
+        }
+
+        @media (max-width: 620px) {
+            .lightbox {
+                padding: 16px;
+            }
+
+            .lightbox-nav {
+                top: auto;
+                bottom: 20px;
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                transform: none;
+            }
+
+            .lightbox-nav:hover {
+                transform: scale(1.06);
+            }
+
+            .lightbox-prev {
+                left: calc(50% - 56px);
+            }
+
+            .lightbox-next {
+                right: calc(50% - 56px);
+            }
+
+            .lightbox-caption {
+                padding-bottom: 56px;
+            }
+        }
+
+
+        /* =========================================================
+           ABOUT — PROFILE & SKILLS
+           ========================================================= */
+
+        .about-profile,
+        .skills-card {
+            padding: 20px;
+        }
+
+        .about-profile h3,
+        .skills-card h3 {
+            margin-top: 0;
+        }
+
+        .about-highlight {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .skills-groups {
+            display: grid;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .skill-group {
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .skill-group:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+        .skill-group h4 {
+            margin: 0 0 10px;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(96,165,250,0.07);
+            border: 1px solid rgba(96,165,250,0.16);
+            color: var(--muted);
+            font-size: 12px;
+            transition:
+                border-color 160ms ease,
+                color 160ms ease,
+                transform 160ms ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-1px);
+            border-color: rgba(96,165,250,0.42);
+            color: var(--text);
+        }
+
+        /* =========================================================
+           CONTACT
+           ========================================================= */
+
+        form {
+            display: grid;
+
+            gap: 12px;
+
+            margin-top: 12px;
+        }
+
+        input,
+        textarea {
+            background: var(--panel);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            color: var(--text);
+
+            padding: 12px;
+
+            border-radius: 12px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid var(--ring);
+
+            border-color: transparent;
+        }
+
+
+
+        /* =========================================================
+           CONTACT — PROFESSIONAL CTA
+           ========================================================= */
+
+        .contact-shell {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 18px;
+            align-items: stretch;
+            margin-top: 24px;
+        }
+
+        .contact-info,
+        .contact-form-card {
+            padding: 22px;
+        }
+
+        .contact-info h3,
+        .contact-form-card h3 {
+            margin-top: 0;
+        }
+
+        .availability {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0 18px;
+            padding: 7px 11px;
+            border-radius: 999px;
+            background: rgba(134,239,172,0.07);
+            border: 1px solid rgba(134,239,172,0.18);
+            color: #bbf7d0;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .availability-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #86efac;
+            box-shadow: 0 0 10px rgba(134,239,172,0.65);
+        }
+
+        .contact-links {
+            display: grid;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .contact-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 11px;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: rgba(11,12,16,0.38);
+            color: var(--text);
+            text-decoration: none;
+            transition:
+                transform 160ms ease,
+                border-color 160ms ease,
+                background 160ms ease;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-2px);
+            border-color: rgba(96,165,250,0.36);
+            background: rgba(96,165,250,0.06);
+        }
+
+        .contact-link span:last-child {
+            color: var(--accent);
+        }
+
+        .contact-form-card form {
+            margin: 0;
+        }
+
+        .contact-note {
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        footer {
+            padding: 48px 0;
+
+            color: var(--muted);
+
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           CUSTOM CURSOR
+           ========================================================= */
+
+        .custom-cursor {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 22px;
+            height: 22px;
+
+            border: 2px solid var(--accent);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+
+            transition:
+                transform 120ms ease,
+                box-shadow 120ms ease,
+                opacity 120ms ease;
+
+            z-index: 9999;
+
+            box-shadow:
+                0 0 8px rgba(96,165,250,.65),
+                0 0 18px rgba(96,165,250,.35),
+                0 0 36px rgba(96,165,250,.25);
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(96,165,250,.15) 0 40%,
+                    rgba(96,165,250,0) 60%
+                );
+
+            mix-blend-mode: screen;
+        }
+
+        .cursor-dot {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 6px;
+            height: 6px;
+
+            background: var(--accent);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+
+            transition:
+                transform 120ms ease,
+                box-shadow 120ms ease,
+                opacity 120ms ease;
+
+            z-index: 9999;
+
+            box-shadow:
+                0 0 10px rgba(96,165,250,.9),
+                0 0 22px rgba(96,165,250,.55);
+        }
+
+        .cursor-active {
+            transform:
+                translate(-50%, -50%)
+                scale(1.45);
+
+            box-shadow:
+                0 0 12px rgba(96,165,250,.9),
+                0 0 26px rgba(96,165,250,.6),
+                0 0 46px rgba(96,165,250,.45);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE DESIGN
+           ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+
+                padding-top: 48px;
+            }
+
+            .grid.projects {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .grid.featured-projects {
+                grid-template-columns: 1fr;
+            }
+
+            .grid.wip-projects {
+                grid-template-columns: 1fr;
+            }
+
+            .current-semester-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-shell {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+
+            .grid.projects {
+                grid-template-columns: 1fr;
+            }
+
+            .grid.two {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .project-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .links {
+                gap: 6px;
+            }
+
+            .links a {
+                font-size: 0.9rem;
+
+                padding: 0 8px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .custom-cursor,
+            .cursor-dot {
+                transition: none;
+            }
+
+            .pcb-signal,
+            .pcb-active-via {
+                animation: none;
+            }
+        }
+
+    </style>
+
 </head>
 
+
 <body>
-  <header>
-    <div class="wrap nav">
-        <div class="brand">Mateo Wu Chen <span>· Portfolio</span></div>
-        <nav class="links">
-            <a href="#projects">Projects</a>
-            <a href="#experience">Experience</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-            <a class="chip" href="https://github.com/wuchenm" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </nav>
+
+    <!-- =========================================================
+         SUBTLE ANIMATED PCB BACKGROUND
+         ========================================================= -->
+
+    <div class="pcb-background" aria-hidden="true">
+
+        <svg
+            viewBox="0 0 1600 1000"
+            preserveAspectRatio="xMidYMid slice"
+        >
+
+            <defs>
+
+                <filter
+                    id="pcb-glow"
+                    x="-50%"
+                    y="-50%"
+                    width="200%"
+                    height="200%"
+                >
+                    <feGaussianBlur stdDeviation="3.2" result="blur"/>
+                    <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+
+                <filter
+                    id="pcb-via-glow"
+                    x="-100%"
+                    y="-100%"
+                    width="300%"
+                    height="300%"
+                >
+                    <feGaussianBlur stdDeviation="5" result="blur"/>
+                    <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+
+            </defs>
+
+
+            <!-- LEFT NETWORK -->
+
+            <path
+                class="pcb-trace"
+                d="M-80 150 H115 L165 200 H330 L375 245 H520"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M35 350 H170 L215 305 H350 L410 365 H565"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M-40 720 H120 L180 660 H335 L390 605 H545"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M90 920 V835 L145 780 H270 L315 735"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M470 80 V150 L425 195 V275"
+            />
+
+
+            <!-- RIGHT NETWORK -->
+
+            <path
+                class="pcb-trace"
+                d="M1080 120 H1210 L1260 170 H1450 L1510 230 H1680"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1035 340 H1175 L1225 390 H1390 L1445 335 H1640"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1090 665 H1240 L1290 615 H1455 L1510 670 H1670"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1180 950 V850 L1230 800 H1370 L1420 750"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1540 470 H1470 L1420 520 V590"
+            />
+
+
+            <!-- SMALLER BRANCHES -->
+
+            <path
+                class="pcb-trace"
+                d="M245 305 V250 L285 210 H350"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M335 605 V555 L375 515 H455 L485 485"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1225 390 V325 L1270 280 H1450 L1510 230"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1370 800 V855 L1410 895 H1490 L1525 860"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M720 -40 V85 L765 130 H840"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M760 1040 V925 L805 880 H875"
+            />
+
+            <!-- PADS / VIAS -->
+
+            <rect class="pcb-pad" x="505" y="236" width="30" height="18" rx="5"/>
+            <rect class="pcb-pad" x="550" y="356" width="30" height="18" rx="5"/>
+            <rect class="pcb-pad" x="530" y="596" width="30" height="18" rx="5"/>
+
+            <rect class="pcb-pad" x="1065" y="111" width="30" height="18" rx="5"/>
+            <rect class="pcb-pad" x="1020" y="331" width="30" height="18" rx="5"/>
+            <rect class="pcb-pad" x="1075" y="656" width="30" height="18" rx="5"/>
+
+            <circle class="pcb-via" cx="165" cy="200" r="7"/>
+            <circle class="pcb-via" cx="215" cy="305" r="7"/>
+            <circle class="pcb-via" cx="390" cy="605" r="7"/>
+            <circle class="pcb-via" cx="145" cy="780" r="7"/>
+            <circle class="pcb-via" cx="425" cy="195" r="7"/>
+
+            <circle class="pcb-via" cx="1260" cy="170" r="7"/>
+            <circle class="pcb-via" cx="1225" cy="390" r="7"/>
+            <circle class="pcb-via" cx="1290" cy="615" r="7"/>
+            <circle class="pcb-via" cx="1230" cy="800" r="7"/>
+            <circle class="pcb-via" cx="1420" cy="520" r="7"/>
+
+            <circle class="pcb-via" cx="765" cy="130" r="7"/>
+            <circle class="pcb-via" cx="805" cy="880" r="7"/>
+
+
+
+            <!-- EXTRA PCB ROUTING DENSITY -->
+
+            <path
+                class="pcb-trace"
+                d="M-60 500 H75 L120 455 H245 L290 410 H410"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M0 830 H165 L210 875 H365 L415 925 H535"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M560 0 V105 L610 155 V265 L655 310"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M610 1000 V900 L660 850 V745 L705 700"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1595 485 H1510 L1460 435 H1335 L1285 485 H1175"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1640 855 H1515 L1465 905 H1325 L1275 955 H1160"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1000 0 V95 L950 145 V250 L905 295"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M990 1000 V910 L940 860 V765 L895 720"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M-20 265 H95 L135 305 H185"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1410 60 H1505 L1550 105 H1650"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M35 610 H105 L145 570 H225"
+            />
+
+            <path
+                class="pcb-trace"
+                d="M1375 735 H1450 L1490 695 H1610"
+            />
+
+            <circle class="pcb-via" cx="120" cy="455" r="7"/>
+            <circle class="pcb-via" cx="290" cy="410" r="7"/>
+            <circle class="pcb-via" cx="210" cy="875" r="7"/>
+            <circle class="pcb-via" cx="610" cy="155" r="7"/>
+            <circle class="pcb-via" cx="660" cy="850" r="7"/>
+            <circle class="pcb-via" cx="1460" cy="435" r="7"/>
+            <circle class="pcb-via" cx="1285" cy="485" r="7"/>
+            <circle class="pcb-via" cx="1465" cy="905" r="7"/>
+            <circle class="pcb-via" cx="950" cy="145" r="7"/>
+            <circle class="pcb-via" cx="940" cy="860" r="7"/>
+
+            <rect class="pcb-pad" x="397" y="401" width="28" height="18" rx="5"/>
+            <rect class="pcb-pad" x="522" y="916" width="28" height="18" rx="5"/>
+            <rect class="pcb-pad" x="1160" y="476" width="30" height="18" rx="5"/>
+            <rect class="pcb-pad" x="1145" y="946" width="30" height="18" rx="5"/>
+
+
+
+            <!-- PCB TERMINATIONS / TEST POINTS
+                 These finish exposed routes so they read as intentional
+                 board connections instead of floating line segments. -->
+
+            <!-- Left / upper network -->
+            <circle class="pcb-terminal" cx="115" cy="150" r="7"/>
+            <circle class="pcb-terminal-core" cx="115" cy="150" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="245" cy="305" r="7"/>
+            <circle class="pcb-terminal-core" cx="245" cy="305" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="455" cy="275" r="7"/>
+            <circle class="pcb-terminal-core" cx="455" cy="275" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="75" cy="500" r="7"/>
+            <circle class="pcb-terminal-core" cx="75" cy="500" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="225" cy="570" r="7"/>
+            <circle class="pcb-terminal-core" cx="225" cy="570" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="335" cy="605" r="7"/>
+            <circle class="pcb-terminal-core" cx="335" cy="605" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="165" cy="830" r="7"/>
+            <circle class="pcb-terminal-core" cx="165" cy="830" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="90" cy="835" r="7"/>
+            <circle class="pcb-terminal-core" cx="90" cy="835" r="2.6"/>
+
+            <!-- Right / upper network -->
+            <circle class="pcb-terminal" cx="1420" cy="520" r="7"/>
+            <circle class="pcb-terminal-core" cx="1420" cy="520" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="1510" cy="485" r="7"/>
+            <circle class="pcb-terminal-core" cx="1510" cy="485" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="1490" cy="695" r="7"/>
+            <circle class="pcb-terminal-core" cx="1490" cy="695" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="1515" cy="855" r="7"/>
+            <circle class="pcb-terminal-core" cx="1515" cy="855" r="2.6"/>
+
+            <circle class="pcb-terminal" cx="1370" cy="800" r="7"/>
+            <circle class="pcb-terminal-core" cx="1370" cy="800" r="2.6"/>
+
+            <!-- Small rectangular landing pads at selected dead ends -->
+            <rect class="pcb-testpad" x="440" y="267" width="30" height="16" rx="4"/>
+            <rect class="pcb-testpad" x="210" y="562" width="30" height="16" rx="4"/>
+            <rect class="pcb-testpad" x="1475" y="687" width="30" height="16" rx="4"/>
+            <rect class="pcb-testpad" x="1500" y="847" width="30" height="16" rx="4"/>
+
+
+            <!-- TRAVELING SIGNALS -->
+
+            <path
+                class="pcb-signal"
+                pathLength="794"
+                d="M-80 150 H115 L165 200 H330 L375 245 H520"
+            />
+
+            <path
+                class="pcb-signal signal-2"
+                pathLength="794"
+                d="M-40 720 H120 L180 660 H335 L390 605 H545"
+            />
+
+            <path
+                class="pcb-signal signal-3"
+                pathLength="794"
+                d="M1080 120 H1210 L1260 170 H1450 L1510 230 H1680"
+            />
+
+            <path
+                class="pcb-signal signal-4"
+                pathLength="794"
+                d="M1090 665 H1240 L1290 615 H1455 L1510 670 H1670"
+            />
+
+
+
+            <path
+                class="pcb-signal signal-2"
+                pathLength="794"
+                d="M-60 500 H75 L120 455 H245 L290 410 H410"
+            />
+
+            <path
+                class="pcb-signal signal-3"
+                pathLength="794"
+                d="M1595 485 H1510 L1460 435 H1335 L1285 485 H1175"
+            />
+
+
+            <!-- OCCASIONALLY GLOWING VIAS -->
+
+            <circle
+                class="pcb-via pcb-active-via"
+                cx="165"
+                cy="200"
+                r="7"
+            />
+
+            <circle
+                class="pcb-via pcb-active-via via-2"
+                cx="390"
+                cy="605"
+                r="7"
+            />
+
+            <circle
+                class="pcb-via pcb-active-via via-3"
+                cx="1260"
+                cy="170"
+                r="7"
+            />
+
+        </svg>
+
     </div>
-  </header>
 
-  <div class="custom-cursor"></div>
-  <div class="cursor-dot"></div>
-  
-  <main class="wrap">
-    <!-- HERO -->
-    <section class="hero">
-      <div>
-        <h1>Hello, I'm <span style="color:var(--accent)">Mateo</span> 👋</h1>
-        <p>
-          I build things at the intersection of hardware and software -
-          embedded systems, firmware, electronics, and PCB Design. 💻
-          Here's a selection of my work and what I'm up to!!! 😁
-        </p>
-        <div class="cta">
-          <a class="btn" href="#projects">See Projects</a>
-          <a class="btn secondary" href="MateoWuChen-Resume-09-2025.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
-        </div>
-        <div class="tags" style="margin-top:12px">
-          <span class="tag">C++ / Python</span>
-          <span class="tag">Embedded</span>
-          <span class="tag">PCB Design</span>
-          <span class="tag">Electronics</span>
-          <span class="tag">Hardware</span>
-        </div>
-      </div>
-      <div class="avatar card">
-        <img src="images/Me.jpeg" alt="Mateo Wu Chen" class="avatar-img" loading="lazy">
-      </div>
-    </section>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-        <h2>Projects 🚀💡🤖</h2>
-        <p class="sub">Next up… a little gallery of fun, cool builds I’m proud of from my college years!!! 🚀</p>
-  
-        <div class="grid projects">
-  
-            <article class="project card">
-                <img src="images\TatumT1.webp" alt="TatumT1 Assistive Touch Hand prototype with RGB lighting" class="project-img" loading="lazy">
-                <h3>TatumT1 Assistive Touch Hand - Co-op</h3>
-                <div class="meta">Embedded Systems & Hardware Engineer Coop</div>
-                <p>
-                    Designed and built multiple PCBs which includes the robot’s power board, RGB lighting board, and button
-                    interface for deafblind users, also developing and testing the accompanying software.
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+    <header>
+
+        <div class="wrap nav">
+
+            <div class="brand">
+                Mateo Wu Chen
+                <span>· Portfolio</span>
+            </div>
+
+            <nav class="links">
+
+                <a href="#projects">
+                    Projects
+                </a>
+
+                <a href="#experience">
+                    Experience
+                </a>
+
+                <a href="#about">
+                    About
+                </a>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+                <a
+                    class="chip"
+                    href="https://github.com/wuchenm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- Custom Cursor -->
+
+    <div class="custom-cursor"></div>
+
+    <div class="cursor-dot"></div>
+
+
+    <main class="wrap">
+
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+
+        <section class="hero">
+
+            <div>
+
+                <div class="hero-eyebrow">
+                    Computer Engineer · Hardware & Embedded Systems
+                </div>
+
+                <h1>
+                    Hello, I'm
+                    <span style="color:var(--accent)">
+                        Mateo
+                    </span>
+                    👋
+                </h1>
+
+                <p class="hero-copy">
+                    I design and build
+                    <strong>embedded electronics, custom PCBs, FPGA systems, and robotics hardware</strong>, 
+                    from schematic capture and PCB layout to bring-up, debugging,
+                    validation, and system integration.
                 </p>
-                <div class="tags">
-                    <span class="tag">Altium Design</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">C#</span>
-                    <span class="tag">Raspberry Pi</span>
-                    <span class="tag">Linux</span>
+
+                <div class="cta">
+
+                    <a
+                        class="btn"
+                        href="#projects"
+                    >
+                        See My Work
+                    </a>
+
+                    <a
+                        class="btn secondary resume-btn"
+                        href="Mateo-Wu-Chen-Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        View Resume ↗
+                    </a>
+
                 </div>
-            </article>
-  
-            <article class="project card">
-                <div class='project-gallery'>
-                    <img src="images/Prototype-Glasses.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/AR-Glasses.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/AR-Glasses1.jpeg" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/AR-Glasses2.jpeg" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
+
+                <div
+                    class="tags"
+                    style="margin-top:14px"
+                >
+
+                    <span class="tag">
+                        PCB Design
+                    </span>
+
+                    <span class="tag">
+                        Embedded Systems
+                    </span>
+
+                    <span class="tag">
+                        FPGA
+                    </span>
+
+                    <span class="tag">
+                        Hardware
+                    </span>
+
+                    <span class="tag">
+                        Electronics
+                    </span>
+
                 </div>
-                <h3>AI Glasses - Custom ESP32 Dev Board</h3>
-                <div class="meta">Undergraduate Research - SINRG Lab</div>
-                <p>
-                    Custom board with LDO, USB-UART, dual amps for speakers, ICS-43434 mic, and on-board charger circuit.
-                    Designed in Altium, assembled and currently being tested and adding extra features for the glasses.
-                </p>
-                <div class="tags">
-                    <span class="tag">KiCad</span>
-                    <span class="tag">Altium</span>
-                    <span class="tag">Arduino</span>
+
+                <div class="hero-availability">
+                    <span class="hero-availability-dot"></span>
+                    Graduating December 2026 · Available January 2027
                 </div>
-            </article>
-  
-            <article class="project card">
+
+            </div>
+
+
+            <div class="avatar card">
+
+                <img
+                    src="images/Me.jpeg"
+                    alt="Mateo Wu Chen"
+                    class="avatar-img"
+                    loading="lazy"
+                >
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PROJECTS
+             ===================================================== -->
+
+        <section id="projects">
+
+            <h2>
+                Projects 🚀💡🔧
+            </h2>
+
+            <p class="sub">
+                A selection of hardware, embedded systems, robotics, and PCB designs
+                I've developed across industry, research, student teams, and personal projects.
+            </p>
+
+
+            <!-- =================================================
+                 FEATURED PROJECTS
+                 ================================================= -->
+
+            <h3 class="project-section-title">
+                Featured Hardware Projects ⚡
+            </h3>
+
+
+            <div class="grid featured-projects">
+
+
+                <!-- =============================================
+                     FPGA BOARD
+                     ============================================= -->
+
+                <article class="project card featured-project">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/FPGA_SoC-3DView.png"
+                            alt="3D render of custom Zynq-7000 FPGA-SoC development board"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/FPGA-SoC-2DView.png"
+                            alt="PCB layout of custom 6-layer Zynq-7000 FPGA-SoC development board"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <span class="project-status">
+                        Featured Project
+                    </span>
+
+                    <h3>
+                        Custom Zynq-7000 FPGA-SoC Development Board
+                    </h3>
+
+                    <div class="meta">
+                        Personal Project · 2026
+                    </div>
+
+                    <p>
+                        Designed a custom 6-layer FPGA-SoC development board
+                        integrating DDR3L memory, SPI flash, JTAG, and external
+                        expansion interfaces. Developed the complete schematic
+                        and PCB layout with high-density BGA fanout,
+                        controlled-impedance routing, differential pairs,
+                        and DDR3 length matching. Currently testing it using AMD VIVADO Program.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Altium Designer
+                        </span>
+
+                        <span class="tag">
+                            Zynq-7000
+                        </span>
+
+                        <span class="tag">
+                            DDR3L
+                        </span>
+
+                        <span class="tag">
+                            6-Layer PCB
+                        </span>
+
+                        <span class="tag">
+                            BGA
+                        </span>
+
+                        <span class="tag">
+                            High-Speed PCB
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     SHARKNINJA DATA LOGGER
+                     ============================================= -->
+
+                <article class="project card featured-project">
+
                 <div class="project-gallery">
-                    <img src="images/Macropad-Front.png" alt="Custom 4-layer mechanical macropad PCB" class="project-img" loading="lazy">
-                    <img src="images/Macropad-Back.png" alt="Custom 4-layer mechanical macropad PCB" class="project-img" loading="lazy">
-                    <img src="images/Macropad-2D.png" alt="Custom 4-layer mechanical macropad PCB" class="project-img" loading="lazy">
-                    <img src="images/Macropad-2DB.png" alt="Custom 4-layer mechanical macropad PCB" class="project-img" loading="lazy">
-                </div>
-                <h3>Custom Mechanical MacroPad</h3>
-                <div class="meta">Personal</div>
-                <p>
-                    Designed and built a custom 4-layer mechanical macro pad PCB in Altium Designer, from schematic to
-                    layout and routing, integrating features like fill zones and EMI reduction for improved performance
-                </p>
-                <div class="tags">
-                    <span class="tag">Altium Designer</span>
-                </div>
-            </article>
-  
-            <article class="project card">
-                <div class='project-gallery'>
-                    <img src="images/Pill-Pal-1.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Pil-pal-2.jpg" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Pil-pal-3.jpg" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Pil-pal-4.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                </div>
-                <h3>Pill-Pal-4-Life Smart Pill Cap Dispenser</h3>
-                <div class="meta">Forge Product Development Student Club</div>
-                <p>
-                    I worked on a compact, kid-friendly medication reminder robot with a touchscreen that makes taking
-                    medicine more fun and easy. I set up a fingerprint sensor with C++ on an Arduino Mega so it only dispenses
-                     pills securely and on schedule, and I also helped with the electronics and LED interaction design.
-                </p>
-                <div class="tags">
-                    <span class="tag">Arduino</span>
-                    <span class="tag">Breadboards</span>
-                    <span class="tag">Electronics</span>
-                </div>
-            </article>
-  
-            <article class="project card">
-                <div class='project-gallery'>
-                    <img src="images/Pokemon1.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Pokemon2.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Pokemon3.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Pokemon4.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                </div>
-                <h3>Python Pokemon Combat Game</h3>
-                <div class="meta">Computing Fundamentals for Engineers - EECE2140</div>
-                <p>
-                    Created in Python a fully functional Pokémon combat game where users can select from three different Pokémon
-                    to battle against a randomly chosen opponent. Also incorporated Object Oriented Programming and PokeAPI,
-                    background music and sound effects to enrich overall gameplay, alongside intuitive UI design and user-friendly experience.
-                </p>
-                <div class="tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Git</span>
-                    <span class="tag">OOP</span>
-                </div>
-            </article>
-  
-            <article class="project card">
-                <div class='project-gallery'>
-                    <img src="images/Pasta1.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Pasta2.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Pasta3.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                </div>
-                <h3>Automated Pasta Machine</h3>
-                <div class="meta">Forge Product Development Student Club</div>
-                <p>
-                    Designed the CAD model for an automated pasta machine as part of the Forge Fall 2023 Product Development Team. We utilized laser cutting, 3D printing to build the entire product.
-                    The device is a home appliance that functions similarly to a coffee machine, allowing users to select the type of pasta and cooking duration, making it convenient and an user-friendly solution for cooking pasta at home.
-                </p>
-                <div class="tags">
-                    <span class="tag">SolidWorks</span>
-                    <span class="tag">Onshape</span>
-                    <span class="tag">3D Printing</span>
-                    <span class="tag">Laser cutting</span>
-                    <span class="tag">Arduino</span>
-                </div>
-            </article>
-  
-            <article class="project card">
-                <div class='project-gallery'>
-                    <img src="images/Arcade1.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Arcade2.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Arcade3.png" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                    <img src="images/Arcade4.avif" alt="Custom ESP32 dev board for AI glasses" class="project-img" loading="lazy">
-                </div>
-                <h3>Mini Arcade Games</h3>
-                <div class="meta">Fundamentals of Computer Science</div>
-                <p>
-                    Created in Java with Object Oriented Programming some mini arcade games. For example Feeding Frenzy, 15Puzzle,
-                    Bridgit and Tetris.
-                </p>
-                <div class="tags">
-                    <span class="tag">Java</span>
-                    <span class="tag">Git</span>
-                </div>
-            </article>
 
-            <article class="project card">
-                <div class='project-gallery'>
-                    <img src="images/website.webp" alt="Website" class="project-img" loading="lazy">
-                </div>
-                <h3>Website Portfolio</h3>
-                <div class="meta">Portfolio</div>
-                <p>
-                    Created in HTML and saved on Github :D
-                </p>
-                <div class="tags">
-                    <span class="tag">HTML / CSS</span>
-                    <span class="tag">Git</span>
-                </div>
-            </article>
-  
-            <article class="project card">
-                <div class='project-gallery'>
-                    <img src="images/drone.png" alt="Drone" class="project-img" loading="lazy">
-                </div>
-                <h3>Drone??? </h3>
-                <div class="meta">Coming Soon</div>
-                <p>
-                        WIP 🚧🏗️🛠️👷
-                </p>
-                <div class="tags">
-                    <span class="tag">HTML / CSS</span>
-                    <span class="tag">Git</span>
-                </div>
-            </article>
+                    <img
+                        src="images/Datalogger.png"
+                        alt="3D render of custom ESP32-C3 wireless data logger PCB"
+                        class="project-img"
+                        loading="lazy"
+                    >
 
-        </div>
-  </section>
-  
+                    <img
+                        src="images/Datalogger-real.jpeg"
+                        alt="Assembled custom ESP32-C3 wireless data logger PCB"
+                        class="project-img"
+                        loading="lazy"
+                    >
 
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <h2>Experience 📚 ☕︎ 🎧</h2>
-      <p class="sub">Roles, internships, and highlights. 💼⚡</p>
-      <div class="timeline">
-        <div class="item">
-          <h4>Embedded Systems & Hardware Engineer Co-op</h4>
-          <div class="when">January 2025 — July 2025 · Watertown, MA</div>
-          <p>   
-                I designed and tested PCBs in Altium Designer for the TatumT1 Assistive Touch Hand,
-                including power and button boards, plus a custom RGB lighting system that improved 
-                feedback and helped achieve a 100% prototype pass rate. I migrated PWM control to gpiod 
-                on the Raspberry Pi 5, programmed in Python and C#, integrated I2C devices, and optimized 
-                hardware–software interaction for an 80% faster response. I also helped assemble the robot and ran 
-                electrical tests with a multimeter and oscilloscope, catching 95% of faults before final testing.
-            </p>
-        </div>
-        <div class="item">
-          <h4>Undergraduate Research Assistant - Spatial Intelligence Research Group</h4>
-          <div class="when">January 2025 — Present · Boston, MA</div>
-          <p>
-                I helped develop a prototype AI glasses system by designing custom 4-layer PCBs in Altium Designer, 
-                working on schematics and circuits for power regulation and ESP32 interfaces, and using EMI reduction 
-                techniques to improve reliability. I also evaluated hardware needs, optimized component layouts for wearable 
-                integration, and supported sensor integration for real-time AI features.
-            </p>
-        </div>
-        <div class="item">
-            <h4>Undergraduate Research Assistant - NUCAR Research Group</h4>
-            <div class="when">January 2025 — Present · Boston, MA</div>
-            <p>
-                Boosted algorithm performance by implementing parallel computing with Pthreads in C++,
-                improving data synchronization and cutting runtime for large datasets by ~80%. Used the Discovery Cluster
-                for high-performance computing, writing Slurm scripts to allocate GPU resources and benchmark precision calculations.
-                Developed GPU-accelerated matrix multiplication in CUDA C++, achieving up to 1000× speedups over CPU methods, and optimized
-                multi-threaded CPU tasks with OpenMP.
-            </p>
-        </div>
-        <div class="item">
-            <h4>Global Student Ambassador - Northeastern University Immerse Program</h4>
-            <div class="when">August 2022 — May 2025 · Boston, MA</div>
-            <p>
-                Helped international students adapt to American university life by serving as a liaison with the university, 
-                organizing engagement events, and leading orientation programs. Collected and managed student information, 
-                maintained records, and facilitated group discussions and community activities.
-            </p>
-        </div>
-      </div>
-    </section>
+                </div>
 
-    <!-- ABOUT -->
-    <section id="about">
-        <h2>About 🧑🏻‍💼</h2>
-        <p class="sub">
-            A quick look at who I am, what I do, and what drives my work.
-        </p>
-    
-        <div class="grid two">
-            <div class="card" style="padding:16px">
-                <h3>Who I Am 👨🏻‍💻</h3>
-                <p>
-                    I’m a 4th Year Computer Engineering undergraduate student with a passion for creating innovative solutions 
-                    that bridge the gap between hardware and software. Overall, my work spans embedded systems, PCB design, 
-                    and electronics.
-                </p>
-                <p>
-                    Outside of engineering, I’m an explorer at heart — I love walking around and discovering new places.
-                    Indoors, you’ll find me playing guitar, reading, staying active, building Gundam plastic models (GUNPLA), tinkering with PCs,
-                    and geeking out over mechanical keyboards (I’ve built four custom ones so far).
-                </p>
-                <img src="images/Me2.jpeg" alt="Mateo Wu Chen" class="about-img">
+                    <span class="project-status">
+                        Featured Project
+                    </span>
+
+                    <h3>
+                        ESP32-C3 Wireless Data Logger
+                    </h3>
+
+                    <div class="meta">
+                        SharkNinja · Electrical Engineering Co-op · 2026
+                    </div>
+
+                    <p>
+                        Designed and developed a custom 4-layer ESP32-C3 wireless
+                        data-logging platform supporting UART communication,
+                        microSD data storage, RTC timestamping, and BLE/Wi-Fi
+                        connectivity for wireless data acquisition, testing,
+                        and debugging.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            ESP32-C3
+                        </span>
+
+                        <span class="tag">
+                            PCB Design
+                        </span>
+
+                        <span class="tag">
+                            BLE
+                        </span>
+
+                        <span class="tag">
+                            Wi-Fi
+                        </span>
+
+                        <span class="tag">
+                            UART
+                        </span>
+
+                        <span class="tag">
+                            SPI
+                        </span>
+
+                        <span class="tag">
+                            I²C
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     GROWVER
+                     ============================================= -->
+
+                <article class="project card featured-project">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/Growver-Robot.png"
+                            alt="Growver robotic tree-planting platform"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Growver-PCBs.jpeg"
+                            alt="Custom PCBs designed and manufactured for the Growver robotic tree-planting platform"
+                            class="project-img"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <span class="project-status">
+                        Featured Project
+                    </span>
+
+                    <h3>
+                        Growver — Robotic Tree-Planting Robot
+                    </h3>
+
+                    <div class="meta">
+                        Generate · ECE Tech Lead · 2026
+                    </div>
+
+                    <p>
+                        Led electrical development of a robotic reforestation platform, 
+                        architecting custom PCBs for embedded control/MCU, battery management system (BMS), 
+                        and power distribution while integrating motors,sensors,
+                        communications, and power systems for planting operations.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Altium Designer
+                        </span>
+
+                        <span class="tag">
+                            PCB Design
+                        </span>
+
+                        <span class="tag">
+                            Robotics
+                        </span>
+
+                        <span class="tag">
+                            Power Electronics
+                        </span>
+
+                        <span class="tag">
+                            Embedded Systems
+                        </span>
+
+                        <span class="tag">
+                            Leadership
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     CANDLE MAKER
+                     ============================================= -->
+
+                <article class="project card featured-project">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/CandleMaker.jpeg"
+                            alt="Completed automated tabletop candle-making machine"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/CandleMakerPCB.jpeg"
+                            alt="Custom 4-layer PCB designed for the automated candle-making machine"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <span class="project-status">
+                        Featured Project
+                    </span>
+
+                    <h3>
+                        Candl — Automated Candle Maker
+                    </h3>
+
+                    <div class="meta">
+                        Generate · ECE Hardware Member · 2025
+                    </div>
+
+                    <p>
+                        Designed a custom 4-layer PCB for a fully automated
+                        tabletop candle-making system, integrating embedded
+                        control, sensors, motor drivers, power regulation,
+                        heating elements, and safety circuitry into the
+                        electrical architecture.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Altium Designer
+                        </span>
+
+                        <span class="tag">
+                            4-Layer PCB
+                        </span>
+
+                        <span class="tag">
+                            Embedded Systems
+                        </span>
+
+                        <span class="tag">
+                            Power Electronics
+                        </span>
+
+                        <span class="tag">
+                            Motor Control
+                        </span>
+
+                    </div>
+
+                </article>
+
             </div>
-      
-            <div class="card" style="padding:16px">
-            <h3>Skills & Tools 📚</h3>
-            <ul>
-                <li>
-                    <strong>Hardware & Electronics:</strong>
-                    <ul>
-                        <li>PCB Design (Altium Designer, KiCad)</li>
-                        <li>Raspberry Pi</li>
-                        <li>Arduino</li>
-                        <li>Digital Multimeter</li>
-                        <li>Oscilloscope</li>
-                        <li>Soldering</li>
-                        <li>FPGAs</li>
-                        <li>Lasercutting</li>
-                        <li>3D Printing</li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Software:</strong>
-                    <ul>
-                        <li>Altium Designer</li>
-                        <li>KiCad</li>
-                        <li>C / C# / C++</li>
-                        <li>Python</li>
-                        <li>SystemVerilog</li>
-                        <li>MATLAB</li>
-                        <li>LTspice</li>
-                        <li>Linux</li>
-                        <li>Git</li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Languages</strong>
-                    <ul>
-                        <li>Native Spanish</li>
-                        <li>Fluent English</li>
-                        <li>Basic Mandarin</li>
-                    </ul>
-                </li>
-            </ul>
+
+
+
+            <!-- =================================================
+                 WORK IN PROGRESS
+                 ================================================= -->
+
+            <h3 class="project-section-title">
+                Currently Building W.I.P 🛠️🚧
+            </h3>
+
+            <p class="sub">
+                Hardware projects currently in development — from early architecture
+                and component selection to schematic capture, PCB layout, fabrication,
+                and bring-up.
+            </p>
+
+
+            <div class="grid wip-projects">
+
+
+                <!-- =============================================
+                     ESC MOTOR CONTROLLER
+                     ============================================= -->
+
+                <article class="project card wip-project">
+
+                    <div class="wip-placeholder">
+                        ESC Motor Controller<br>
+                        Design in Progress
+                    </div>
+
+                    <span class="wip-badge">
+                        <span class="wip-dot"></span>
+                        In Development
+                    </span>
+
+                    <h3>
+                        ESC Motor Controller
+                    </h3>
+
+                    <div class="meta">
+                        Personal Project · 2026
+                    </div>
+
+                    <p>
+                        Developing a custom electronic speed controller for
+                        brushless motor control, with a focus on power-stage
+                        design, gate driving, current sensing, protection,
+                        and embedded motor-control hardware.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            PCB Design
+                        </span>
+
+                        <span class="tag">
+                            Power Electronics
+                        </span>
+
+                        <span class="tag">
+                            Motor Control
+                        </span>
+
+                        <span class="tag">
+                            Embedded Systems
+                        </span>
+
+                        <span class="tag">
+                            BLDC
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     GIGABIT ETHERNET BOARD
+                     ============================================= -->
+
+                <article class="project card wip-project">
+
+                    <div class="wip-placeholder">
+                        Gigabit Ethernet Board<br>
+                        Design in Progress
+                    </div>
+
+                    <span class="wip-badge">
+                        <span class="wip-dot"></span>
+                        In Development
+                    </span>
+
+                    <h3>
+                        Gigabit Ethernet Development Board
+                    </h3>
+
+                    <div class="meta">
+                        Personal Project · 2026
+                    </div>
+
+                    <p>
+                        Developing a custom Gigabit Ethernet hardware platform
+                        focused on Ethernet PHY integration, magnetics,
+                        high-speed differential routing, controlled impedance,
+                        and hardware bring-up.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            PCB Design
+                        </span>
+
+                        <span class="tag">
+                            Gigabit Ethernet
+                        </span>
+
+                        <span class="tag">
+                            High-Speed Design
+                        </span>
+
+                        <span class="tag">
+                            Differential Pairs
+                        </span>
+
+                        <span class="tag">
+                            Signal Integrity
+                        </span>
+
+                    </div>
+
+                </article>
+
             </div>
-    
-      </div>
-    </section>
-  
 
-    <!-- CONTACT -->
-    <section id="contact">
-        <h2>Contact</h2>
-        <p class="sub">Want to collaborate or chat? Drop a note.</p>
-        <form name="contact" onsubmit="return sendMsg(event)">
-        <input name="name" placeholder="Your name" required />
-        <input name="email" type="email" placeholder="Email" required />
-        <textarea name="message" rows="5" placeholder="Your message" required></textarea>
-        <button class="btn" type="submit">Send</button>
-        <p id="sent" style="display:none; color:#86efac">Thanks! I’ll get back to you soon.</p>
-      </form>
-    </section>
-  </main>
 
-  <footer>
-    <div class="wrap">© <span id="y"></span> Mateo Wu Chen · Built from scratch with HTML/CSS/JS</div>
-  </footer>
 
-  <script>
-    // Simple client‑side handler (replace with a real backend or Formspree)
-    function sendMsg(e){
-      e.preventDefault();
-      const f = e.target;
-      const data = Object.fromEntries(new FormData(f).entries());
-      console.log("Contact form submission", data);
-      f.reset();
-      document.getElementById('sent').style.display = 'block';
-      return false;
-    }
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+            <!-- =================================================
+                 ADDITIONAL PROJECTS
+                 ================================================= -->
 
-<script>
-    const ring = document.querySelector('.custom-cursor');
-    const dot  = document.querySelector('.cursor-dot');
-    
-    function moveTo(e){
-      const x = `${e.clientX}px`, y = `${e.clientY}px`;
-      ring.style.left = dot.style.left = x;
-      ring.style.top  = dot.style.top  = y;
-    }
-    document.addEventListener('mousemove', moveTo);
-    
-    // grow/brighten on click
-    document.addEventListener('mousedown', () => {
-      ring.classList.add('cursor-active');
-      dot.style.transform = 'translate(-50%, -50%) scale(1.3)';
-    });
-    document.addEventListener('mouseup', () => {
-      ring.classList.remove('cursor-active');
-      dot.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
-    
-    // also react on interactive elements
-    document.querySelectorAll('a, button, .btn, .chip').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        ring.classList.add('cursor-active');
-        dot.style.transform = 'translate(-50%, -50%) scale(1.3)';
-      });
-      el.addEventListener('mouseleave', () => {
-        ring.classList.remove('cursor-active');
-        dot.style.transform = 'translate(-50%, -50%) scale(1)';
-      });
-    });
+            <h3 class="project-section-title">
+                Additional Projects 🛠️
+            </h3>
+
+
+            <div class="grid projects">
+
+
+                <!-- =============================================
+                     TATUM T1
+                     ============================================= -->
+
+                <article class="project card">
+
+                    <img
+                        src="images/TatumT1.webp"
+                        alt="TatumT1 Assistive Touch Hand"
+                        class="project-img"
+                        loading="lazy"
+                    >
+
+                    <h3>
+                        TatumT1 Assistive Touch Hand
+                    </h3>
+
+                    <div class="meta">
+                        Tatum Robotics · Embedded Systems & Hardware Co-op
+                    </div>
+
+                    <p>
+                        Developed and validated custom PCBs for an assistive
+                        robotic hand, integrating power distribution, RGB
+                        feedback, embedded I/O, and Raspberry Pi-based control
+                        while supporting board bring-up, debugging, and
+                        system integration.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Altium Designer
+                        </span>
+
+                        <span class="tag">
+                            Python
+                        </span>
+
+                        <span class="tag">
+                            C#
+                        </span>
+
+                        <span class="tag">
+                            Raspberry Pi
+                        </span>
+
+                        <span class="tag">
+                            I²C
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     AI GLASSES
+                     ============================================= -->
+
+                <article class="project card">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/Prototype-Glasses.png"
+                            alt="AI glasses prototype"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/AR-Glasses.png"
+                            alt="Custom ESP32 development board"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/AR-Glasses1.jpeg"
+                            alt="AI glasses hardware"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/AR-Glasses2.jpeg"
+                            alt="AI glasses prototype"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <h3>
+                        AI Glasses — Custom ESP32 Development Board
+                    </h3>
+
+                    <div class="meta">
+                        Undergraduate Research · SINRG Lab
+                    </div>
+
+                    <p>
+                        Designed a custom embedded development board for an
+                        AI glasses research prototype, integrating power
+                        regulation, USB-UART, audio circuitry, microphone
+                        input, and battery charging within a compact
+                        wearable platform.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Altium Designer
+                        </span>
+
+                        <span class="tag">
+                            ESP32
+                        </span>
+
+                        <span class="tag">
+                            PCB Design
+                        </span>
+
+                        <span class="tag">
+                            Embedded Systems
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     MACROPAD
+                     ============================================= -->
+
+                <article class="project card">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/Macropad-Front.png"
+                            alt="MacroPad PCB front"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Macropad-Back.png"
+                            alt="MacroPad PCB back"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Macropad-2D.png"
+                            alt="MacroPad PCB layout"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Macropad-2DB.png"
+                            alt="MacroPad PCB layout"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Custom Mechanical MacroPad
+                    </h3>
+
+                    <div class="meta">
+                        Personal Project
+                    </div>
+
+                    <p>
+                        Designed and built a custom 4-layer mechanical
+                        MacroPad PCB in Altium Designer, completing
+                        schematic capture, component placement, routing,
+                        and board-level design for a compact custom
+                        input device.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Altium Designer
+                        </span>
+
+                        <span class="tag">
+                            PCB Design
+                        </span>
+
+                        <span class="tag">
+                            4-Layer PCB
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     PILL PAL
+                     ============================================= -->
+
+                <article class="project card">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/Pill-Pal-1.png"
+                            alt="Pill-Pal smart pill dispenser"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Pil-pal-2.jpg"
+                            alt="Pill-Pal prototype"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Pil-pal-3.jpg"
+                            alt="Pill-Pal electronics"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Pil-pal-4.png"
+                            alt="Pill-Pal prototype"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Pill-Pal-4-Life Smart Pill Dispenser
+                    </h3>
+
+                    <div class="meta">
+                        Forge Product Development
+                    </div>
+
+                    <p>
+                        Developed electronics for a medication reminder
+                        and dispensing prototype, integrating fingerprint
+                        authentication, embedded control, LEDs, and
+                        electromechanical components as part of a
+                        multidisciplinary product team.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Arduino
+                        </span>
+
+                        <span class="tag">
+                            C++
+                        </span>
+
+                        <span class="tag">
+                            Embedded Systems
+                        </span>
+
+                        <span class="tag">
+                            Electronics
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     PASTA MACHINE
+                     ============================================= -->
+
+                <article class="project card">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/Pasta1.avif"
+                            alt="Automated pasta machine"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Pasta2.avif"
+                            alt="Automated pasta machine prototype"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Pasta3.avif"
+                            alt="Automated pasta machine CAD"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Automated Pasta Machine
+                    </h3>
+
+                    <div class="meta">
+                        Forge Product Development
+                    </div>
+
+                    <p>
+                        Contributed to the development of an automated
+                        tabletop pasta machine, supporting mechanical
+                        design, prototyping, fabrication, and embedded
+                        integration within a multidisciplinary product team.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            SolidWorks
+                        </span>
+
+                        <span class="tag">
+                            Onshape
+                        </span>
+
+                        <span class="tag">
+                            3D Printing
+                        </span>
+
+                        <span class="tag">
+                            Laser Cutting
+                        </span>
+
+                        <span class="tag">
+                            Arduino
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     MINI ARCADE
+                     ============================================= -->
+
+                <article class="project card">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/Arcade1.avif"
+                            alt="Mini arcade game"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Arcade2.avif"
+                            alt="Mini arcade game"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Arcade3.png"
+                            alt="Mini arcade game"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Arcade4.avif"
+                            alt="Mini arcade game"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Mini Arcade Games
+                    </h3>
+
+                    <div class="meta">
+                        Fundamentals of Computer Science
+                    </div>
+
+                    <p>
+                        Developed multiple arcade-style games in Java
+                        using object-oriented programming, including
+                        implementations inspired by Feeding Frenzy,
+                        15 Puzzle, Bridgit, and Tetris.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Java
+                        </span>
+
+                        <span class="tag">
+                            OOP
+                        </span>
+
+                        <span class="tag">
+                            Git
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     POKEMON GAME
+                     ============================================= -->
+
+                <article class="project card">
+
+                    <div class="project-gallery">
+
+                        <img
+                            src="images/Pokemon1.avif"
+                            alt="Python Pokemon combat game"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Pokemon2.avif"
+                            alt="Python Pokemon combat game"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Pokemon3.avif"
+                            alt="Python Pokemon combat game"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="images/Pokemon4.avif"
+                            alt="Python Pokemon combat game"
+                            class="project-img"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Python Pokémon Combat Game
+                    </h3>
+
+                    <div class="meta">
+                        Computing Fundamentals for Engineers
+                    </div>
+
+                    <p>
+                        Developed a Python Pokémon combat game
+                        incorporating object-oriented programming,
+                        API integration, interactive UI elements,
+                        sound effects, and game-state logic.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            Python
+                        </span>
+
+                        <span class="tag">
+                            OOP
+                        </span>
+
+                        <span class="tag">
+                            API
+                        </span>
+
+                        <span class="tag">
+                            Git
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =============================================
+                     WEBSITE PORTFOLIO
+                     ============================================= -->
+
+                <article class="project card">
+
+                    <img
+                        src="images/website.webp"
+                        alt="Mateo Wu Chen engineering portfolio"
+                        class="project-img"
+                        loading="lazy"
+                    >
+
+                    <h3>
+                        Website Portfolio
+                    </h3>
+
+                    <div class="meta">
+                        Personal Project
+                    </div>
+
+                    <p>
+                        Designed and developed this portfolio from
+                        scratch using HTML, CSS, and JavaScript,
+                        with version control through Git and
+                        deployment using GitHub Pages.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            HTML
+                        </span>
+
+                        <span class="tag">
+                            CSS
+                        </span>
+
+                        <span class="tag">
+                            JavaScript
+                        </span>
+
+                        <span class="tag">
+                            Git
+                        </span>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             EXPERIENCE
+             ===================================================== -->
+
+        <section id="experience">
+
+            <h2>
+                Experience 📚 ☕︎ 🎧
+            </h2>
+
+            <p class="sub">
+                Roles, internships, research, and highlights from my undergraduate journey. 💼⚡
+            </p>
+
+
+            <div class="timeline">
+
+
+                <!-- =============================================
+                     CURRENT SEMESTER
+                     ============================================= -->
+
+                <div class="item experience-current">
+
+                    <div class="experience-company">
+                        Final Undergraduate Semester
+                    </div>
+
+                    <h4>
+                        Engineering Leadership & Chip Design
+                    </h4>
+
+                    <div class="experience-meta">
+                        <span class="experience-pill">Fall 2026 — Present</span>
+                        <span class="experience-pill">Boston, MA</span>
+                    </div>
+
+                    <p>
+                        During my final undergraduate semester, I’m continuing to expand
+                        both my technical and leadership experience through two hands-on
+                        engineering organizations at Northeastern.
+                    </p>
+
+                    <div class="current-semester-grid">
+
+                        <div class="current-role">
+
+                            <h5>
+                                Generate
+                            </h5>
+
+                            <div class="role-name">
+                                ECE Chief
+                            </div>
+
+                            <p>
+                                Mentoring electrical and computer engineering teams through
+                                component selection, schematic capture, PCB design, design
+                                reviews, debugging, and hardware bring-up while developing
+                                workshops and technical resources for the ECE community.
+                            </p>
+
+                        </div>
+
+                        <div class="current-role">
+
+                            <h5>
+                                Forge Silicon
+                            </h5>
+
+                            <div class="role-name">
+                                Silicon Chip Design Engineer Member
+                            </div>
+
+                            <p>
+                                Building hands-on experience with integrated-circuit design,
+                                simulation, layout, and the broader semiconductor design
+                                workflow while collaborating with a student silicon design team.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="experience-tags">
+                        <span class="tag">Leadership</span>
+                        <span class="tag">PCB Design</span>
+                        <span class="tag">Hardware Debugging</span>
+                        <span class="tag">IC Design</span>
+                        <span class="tag">Semiconductor Design</span>
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     SHARKNINJA
+                     ============================================= -->
+
+                <div class="item">
+
+                    <div class="experience-company">
+                        SharkNinja
+                    </div>
+
+                    <h4>
+                        Electrical Engineering Co-op
+                    </h4>
+
+                    <div class="experience-meta">
+                        <span class="experience-pill">January 2026 — June 2026</span>
+                        <span class="experience-pill">Needham, MA</span>
+                    </div>
+
+                    <p>
+                        Developed and validated embedded electronics for next-generation
+                        consumer products across analog and digital circuit design, board
+                        bring-up, power architectures, motors, microcontrollers, and
+                        mixed-signal interfaces. Designed a custom ESP32-C3 wireless data
+                        logger for real-time diagnostics and validation, and developed a
+                        Python/PyVISA automated test platform that reduced manual test time
+                        by ~90%.
+                    </p>
+
+                    <div class="experience-tags">
+                        <span class="tag">PCB Design</span>
+                        <span class="tag">ESP32-C3</span>
+                        <span class="tag">Board Bring-up</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">PyVISA</span>
+                        <span class="tag">Embedded Systems</span>
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     SINRG
+                     ============================================= -->
+
+                <div class="item">
+
+                    <div class="experience-company">
+                        Northeastern University · SINRG
+                    </div>
+
+                    <h4>
+                        Undergraduate Research Assistant
+                    </h4>
+
+                    <div class="experience-meta">
+                        <span class="experience-pill">January 2025 — December 2025</span>
+                        <span class="experience-pill">Boston, MA</span>
+                    </div>
+
+                    <p>
+                        Contributed to an AI glasses research prototype by designing a
+                        custom 4-layer PCB in Altium Designer, including power regulation
+                        and microcontroller interfaces. Developed and validated embedded
+                        firmware and performed hardware-software integration testing using
+                        UART and I²C to verify sensors, optics, and microcontroller
+                        functionality.
+                    </p>
+
+                    <div class="experience-tags">
+                        <span class="tag">Altium Designer</span>
+                        <span class="tag">4-Layer PCB</span>
+                        <span class="tag">Embedded Firmware</span>
+                        <span class="tag">UART</span>
+                        <span class="tag">I²C</span>
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     TATUM ROBOTICS
+                     ============================================= -->
+
+                <div class="item">
+
+                    <div class="experience-company">
+                        Tatum Robotics
+                    </div>
+
+                    <h4>
+                        Embedded Systems & Hardware Engineer Co-op
+                    </h4>
+
+                    <div class="experience-meta">
+                        <span class="experience-pill">January 2025 — July 2025</span>
+                        <span class="experience-pill">Watertown, MA</span>
+                    </div>
+
+                    <p>
+                        Designed and validated custom 4-layer power, button, and RGB PCBs
+                        for the TatumT1 Assistive Touch Hand, contributing to a 100%
+                        functional prototype success rate. Migrated embedded control
+                        software to Raspberry Pi 5, improving system response time by 80%,
+                        and performed electrical bring-up and validation with a 95% fault
+                        detection rate.
+                    </p>
+
+                    <div class="experience-tags">
+                        <span class="tag">Altium Designer</span>
+                        <span class="tag">Raspberry Pi</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">C#</span>
+                        <span class="tag">I²C</span>
+                        <span class="tag">Hardware Validation</span>
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     NUCAR
+                     ============================================= -->
+
+                <div class="item">
+
+                    <div class="experience-company">
+                        Northeastern University · NUCAR
+                    </div>
+
+                    <h4>
+                        Undergraduate Research Assistant
+                    </h4>
+
+                    <div class="experience-meta">
+                        <span class="experience-pill">May 2023 — December 2024</span>
+                        <span class="experience-pill">Boston, MA</span>
+                    </div>
+
+                    <p>
+                        Developed and benchmarked parallel C++ applications using CUDA,
+                        Pthreads, and OpenMP on Northeastern's Discovery Cluster,
+                        implementing GPU-accelerated workloads and achieving up to
+                        1000× speedup over CPU implementations.
+                    </p>
+
+                    <div class="experience-tags">
+                        <span class="tag">CUDA C++</span>
+                        <span class="tag">Pthreads</span>
+                        <span class="tag">OpenMP</span>
+                        <span class="tag">GPU Computing</span>
+                        <span class="tag">Slurm</span>
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     GLOBAL STUDENT AMBASSADOR
+                     ============================================= -->
+
+                <div class="item">
+
+                    <div class="experience-company">
+                        Northeastern University · Immerse Program
+                    </div>
+
+                    <h4>
+                        Global Student Ambassador
+                    </h4>
+
+                    <div class="experience-meta">
+                        <span class="experience-pill">August 2022 — May 2025</span>
+                        <span class="experience-pill">Boston, MA</span>
+                    </div>
+
+                    <p>
+                        Supported international students as they transitioned into
+                        university life by serving as a liaison with Northeastern,
+                        organizing community events, leading orientation activities,
+                        and facilitating group discussions. This role marked the beginning
+                        of my undergraduate involvement and helped build my foundation in
+                        communication, mentorship, and community leadership.
+                    </p>
+
+                    <div class="experience-tags">
+                        <span class="tag">Leadership</span>
+                        <span class="tag">Mentorship</span>
+                        <span class="tag">Communication</span>
+                        <span class="tag">Community</span>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+             ===================================================== -->
+
+        <section id="about">
+
+            <h2>
+                About 🧑🏻‍💼
+            </h2>
+
+            <p class="sub">
+                A little more about the engineer behind the boards, code, and projects.
+            </p>
+
+
+            <div class="grid two">
+
+
+                <!-- =============================================
+                     WHO I AM
+                     ============================================= -->
+
+                <div class="card about-profile">
+
+                    <h3>
+                        Who I Am 👨🏻‍💻
+                    </h3>
+
+                    <p>
+                        I’m a Computer Engineering student at Northeastern University,
+                        graduating in December 2026, with a focus on building hardware
+                        that lives at the intersection of
+                        <span class="about-highlight">electronics, embedded systems, and computing</span>.
+                        My experience spans custom PCB design, board bring-up and debugging,
+                        embedded development, robotics, FPGA-based systems, and high-speed
+                        digital hardware.
+                    </p>
+
+                    <p>
+                        Through industry co-ops, research, student engineering teams, and
+                        personal projects, I’ve worked across the full hardware-development
+                        process — from component selection and schematic capture to PCB
+                        layout, fabrication, bring-up, validation, and system integration.
+                        I’m also expanding into IC and semiconductor design as I finish my
+                        undergraduate degree.
+                    </p>
+
+                    <p>
+                        Outside of engineering, I’m an explorer at heart — I love walking
+                        around and discovering new places. Indoors, you’ll usually find me
+                        playing guitar, reading, staying active, building Gundam plastic
+                        models (GUNPLA), tinkering with PCs, or geeking out over mechanical
+                        keyboards — currently seven and counting, plus my custom MacroPad. 😁
+                    </p>
+
+                    <img
+                        src="images/Me2.jpeg"
+                        alt="Mateo Wu Chen"
+                        class="about-img"
+                    >
+
+                </div>
+
+
+
+                <!-- =============================================
+                     SKILLS & TOOLS
+                     ============================================= -->
+
+                <div class="card skills-card">
+
+                    <h3>
+                        Skills & Tools ⚡
+                    </h3>
+
+                    <div class="skills-groups">
+
+
+                        <div class="skill-group">
+
+                            <h4>
+                                Hardware & PCB Design
+                            </h4>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">PCB Design</span>
+                                <span class="skill-tag">Schematic Capture</span>
+                                <span class="skill-tag">Multilayer PCBs</span>
+                                <span class="skill-tag">BGA Routing</span>
+                                <span class="skill-tag">Controlled Impedance</span>
+                                <span class="skill-tag">Differential Pairs</span>
+                                <span class="skill-tag">Board Bring-up</span>
+                                <span class="skill-tag">Hardware Debugging</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="skill-group">
+
+                            <h4>
+                                Embedded & Digital Systems
+                            </h4>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">ESP32</span>
+                                <span class="skill-tag">Raspberry Pi</span>
+                                <span class="skill-tag">Arduino</span>
+                                <span class="skill-tag">FPGA Design</span>
+                                <span class="skill-tag">UART</span>
+                                <span class="skill-tag">SPI</span>
+                                <span class="skill-tag">I²C</span>
+                                <span class="skill-tag">BLE</span>
+                                <span class="skill-tag">Wi-Fi</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="skill-group">
+
+                            <h4>
+                                Programming
+                            </h4>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">C</span>
+                                <span class="skill-tag">C++</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">C#</span>
+                                <span class="skill-tag">SystemVerilog</span>
+                                <span class="skill-tag">CUDA</span>
+                                <span class="skill-tag">Bash</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="skill-group">
+
+                            <h4>
+                                Engineering Software
+                            </h4>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Altium Designer</span>
+                                <span class="skill-tag">KiCad</span>
+                                <span class="skill-tag">AMD Vivado</span>
+                                <span class="skill-tag">LTspice</span>
+                                <span class="skill-tag">MATLAB</span>
+                                <span class="skill-tag">Ngspice</span>
+                                <span class="skill-tag">Magic Layout</span>
+                                <span class="skill-tag">Git</span>
+                                <span class="skill-tag">Linux</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="skill-group">
+
+                            <h4>
+                                Lab & Prototyping
+                            </h4>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Oscilloscopes</span>
+                                <span class="skill-tag">Logic Analyzers</span>
+                                <span class="skill-tag">Digital Multimeters</span>
+                                <span class="skill-tag">Soldering</span>
+                                <span class="skill-tag">Electrical Validation</span>
+                                <span class="skill-tag">3D Printing</span>
+                                <span class="skill-tag">Laser Cutting</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="skill-group">
+
+                            <h4>
+                                Languages
+                            </h4>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Spanish · Native</span>
+                                <span class="skill-tag">English · Fluent</span>
+                                <span class="skill-tag">Mandarin · Basic</span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT
+             ===================================================== -->
+
+        <section id="contact">
+
+            <h2>
+                Contact 🤝
+            </h2>
+
+            <p class="sub">
+                Interested in hardware, embedded systems, electronics, or just want to connect? I’d love to hear from you.
+            </p>
+
+
+            <div class="contact-shell">
+
+
+                <div class="card contact-info">
+
+                    <h3>
+                        Let’s Connect
+                    </h3>
+
+                    <div class="availability">
+                        <span class="availability-dot"></span>
+                        Available January 2027 · Open to full-time opportunities
+                    </div>
+
+                    <p>
+                        I’m currently finishing my Computer Engineering degree at Northeastern
+                        and looking for full-time opportunities in electrical engineering,
+                        hardware engineering, embedded systems, PCB design, and related roles.
+                    </p>
+
+                    <div class="contact-links">
+
+                        <a
+                            class="contact-link"
+                            href="mailto:wu.mat@northeastern.edu"
+                        >
+                            <span>Email</span>
+                            <span>↗</span>
+                        </a>
+
+                        <a
+                            class="contact-link"
+                            href="https://www.linkedin.com/in/mateowuchen/"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <span>LinkedIn</span>
+                            <span>↗</span>
+                        </a>
+
+                        <a
+                            class="contact-link"
+                            href="https://github.com/wuchenm"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <span>GitHub</span>
+                            <span>↗</span>
+                        </a>
+
+                        <a
+                            class="contact-link"
+                            href="Mateo-Wu-Chen-Resume.pdf"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <span>Resume</span>
+                            <span>↗</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card contact-form-card">
+
+                    <h3>
+                        Send Me a Message
+                    </h3>
+
+                    <p>
+                        Fill this out and your email app will open with the message ready to send.
+                    </p>
+
+                    <form
+                        name="contact"
+                        onsubmit="return sendMsg(event)"
+                    >
+
+                        <input
+                            name="name"
+                            placeholder="Your name"
+                            required
+                        >
+
+                        <input
+                            name="email"
+                            type="email"
+                            placeholder="Your email"
+                            required
+                        >
+
+                        <textarea
+                            name="message"
+                            rows="5"
+                            placeholder="Your message"
+                            required
+                        ></textarea>
+
+                        <button
+                            class="btn"
+                            type="submit"
+                        >
+                            Prepare Email ↗
+                        </button>
+
+                        <p class="contact-note">
+                            This uses your default email application — the site does not store your information.
+                        </p>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+
+    <!-- =========================================================
+         PROJECT IMAGE LIGHTBOX
+         ========================================================= -->
+
+    <div
+        class="lightbox"
+        id="project-lightbox"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Project image viewer"
+    >
+
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+
+        <button
+            class="lightbox-close"
+            id="lightbox-close"
+            type="button"
+            aria-label="Close image viewer"
+        >
+            ×
+        </button>
+
+        <button
+            class="lightbox-nav lightbox-prev"
+            id="lightbox-prev"
+            type="button"
+            aria-label="Previous image"
+        >
+            ‹
+        </button>
+
+        <div class="lightbox-content">
+
+            <img
+                class="lightbox-image"
+                id="lightbox-image"
+                src=""
+                alt=""
+            >
+
+            <div
+                class="lightbox-caption"
+                id="lightbox-caption"
+            ></div>
+
+        </div>
+
+        <button
+            class="lightbox-nav lightbox-next"
+            id="lightbox-next"
+            type="button"
+            aria-label="Next image"
+        >
+            ›
+        </button>
+
+    </div>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer>
+
+        <div class="wrap">
+
+            ©
+            <span id="y"></span>
+
+            Mateo Wu Chen · Built from scratch with HTML/CSS/JS
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
+    <script>
+
+        // Contact form: opens the visitor's default email app
+        function sendMsg(event) {
+
+            event.preventDefault();
+
+            const form = event.target;
+            const name = form.elements["name"].value.trim();
+            const email = form.elements["email"].value.trim();
+            const message = form.elements["message"].value.trim();
+
+            const subject =
+                encodeURIComponent(`Portfolio message from ${name}`);
+
+            const body =
+                encodeURIComponent(
+                    `Hi Mateo,\n\n${message}\n\nBest,\n${name}\n${email}`
+                );
+
+            window.location.href =
+                `mailto:wu.mat@northeastern.edu?subject=${subject}&body=${body}`;
+
+            return false;
+        }
+
+
+        // Automatically update copyright year
+        document
+            .getElementById('y')
+            .textContent =
+            new Date().getFullYear();
+
     </script>
-    
-    
+
+
+
+
+    <script>
+
+        // =========================================================
+        // PROJECT IMAGE LIGHTBOX
+        // =========================================================
+
+        const projectImages =
+            Array.from(
+                document.querySelectorAll(
+                    '#projects .project img'
+                )
+            );
+
+        const lightbox =
+            document.getElementById(
+                'project-lightbox'
+            );
+
+        const lightboxImage =
+            document.getElementById(
+                'lightbox-image'
+            );
+
+        const lightboxCaption =
+            document.getElementById(
+                'lightbox-caption'
+            );
+
+        const lightboxCounter =
+            document.getElementById(
+                'lightbox-counter'
+            );
+
+        const lightboxClose =
+            document.getElementById(
+                'lightbox-close'
+            );
+
+        const lightboxPrev =
+            document.getElementById(
+                'lightbox-prev'
+            );
+
+        const lightboxNext =
+            document.getElementById(
+                'lightbox-next'
+            );
+
+        let currentImageIndex = 0;
+
+
+        function updateLightbox(index) {
+
+            if (!projectImages.length) return;
+
+            currentImageIndex =
+                (index + projectImages.length) %
+                projectImages.length;
+
+            const selectedImage =
+                projectImages[currentImageIndex];
+
+            const projectCard =
+                selectedImage.closest('.project');
+
+            const projectTitle =
+                projectCard
+                    ?.querySelector('h3')
+                    ?.textContent
+                    ?.trim();
+
+            lightboxImage.src =
+                selectedImage.src;
+
+            lightboxImage.alt =
+                selectedImage.alt || projectTitle || 'Project image';
+
+            lightboxCaption.textContent =
+                projectTitle || selectedImage.alt || '';
+
+            lightboxCounter.textContent =
+                `${currentImageIndex + 1} / ${projectImages.length}`;
+        }
+
+
+        function openLightbox(index) {
+
+            updateLightbox(index);
+
+            lightbox.classList.add('open');
+
+            lightbox.setAttribute(
+                'aria-hidden',
+                'false'
+            );
+
+            document.body.classList.add(
+                'lightbox-open'
+            );
+
+            lightboxClose.focus();
+        }
+
+
+        function closeLightbox() {
+
+            lightbox.classList.remove('open');
+
+            lightbox.setAttribute(
+                'aria-hidden',
+                'true'
+            );
+
+            document.body.classList.remove(
+                'lightbox-open'
+            );
+        }
+
+
+        projectImages.forEach(
+            (image, index) => {
+
+                image.setAttribute(
+                    'tabindex',
+                    '0'
+                );
+
+                image.setAttribute(
+                    'role',
+                    'button'
+                );
+
+                image.setAttribute(
+                    'aria-label',
+                    `Open ${image.alt || 'project image'}`
+                );
+
+                image.addEventListener(
+                    'click',
+                    () => openLightbox(index)
+                );
+
+                image.addEventListener(
+                    'keydown',
+                    (event) => {
+
+                        if (
+                            event.key === 'Enter' ||
+                            event.key === ' '
+                        ) {
+                            event.preventDefault();
+                            openLightbox(index);
+                        }
+                    }
+                );
+            }
+        );
+
+
+        lightboxClose.addEventListener(
+            'click',
+            closeLightbox
+        );
+
+
+        lightboxPrev.addEventListener(
+            'click',
+            () => updateLightbox(
+                currentImageIndex - 1
+            )
+        );
+
+
+        lightboxNext.addEventListener(
+            'click',
+            () => updateLightbox(
+                currentImageIndex + 1
+            )
+        );
+
+
+        lightbox.addEventListener(
+            'click',
+            (event) => {
+
+                if (event.target === lightbox) {
+                    closeLightbox();
+                }
+            }
+        );
+
+
+        document.addEventListener(
+            'keydown',
+            (event) => {
+
+                if (
+                    !lightbox.classList.contains('open')
+                ) return;
+
+                if (event.key === 'Escape') {
+                    closeLightbox();
+                }
+
+                if (event.key === 'ArrowLeft') {
+                    updateLightbox(
+                        currentImageIndex - 1
+                    );
+                }
+
+                if (event.key === 'ArrowRight') {
+                    updateLightbox(
+                        currentImageIndex + 1
+                    );
+                }
+            }
+        );
+
+    </script>
+
+
+    <!-- Custom cursor -->
+
+    <script>
+
+        const ring =
+            document.querySelector(
+                '.custom-cursor'
+            );
+
+        const dot =
+            document.querySelector(
+                '.cursor-dot'
+            );
+
+
+        function moveTo(e) {
+
+            const x =
+                `${e.clientX}px`;
+
+            const y =
+                `${e.clientY}px`;
+
+            ring.style.left =
+                dot.style.left =
+                x;
+
+            ring.style.top =
+                dot.style.top =
+                y;
+        }
+
+
+        document.addEventListener(
+            'mousemove',
+            moveTo
+        );
+
+
+        // Grow and brighten on click
+        document.addEventListener(
+            'mousedown',
+            () => {
+
+                ring.classList.add(
+                    'cursor-active'
+                );
+
+                dot.style.transform =
+                    'translate(-50%, -50%) scale(1.3)';
+            }
+        );
+
+
+        document.addEventListener(
+            'mouseup',
+            () => {
+
+                ring.classList.remove(
+                    'cursor-active'
+                );
+
+                dot.style.transform =
+                    'translate(-50%, -50%) scale(1)';
+            }
+        );
+
+
+        // React to interactive elements
+        document
+            .querySelectorAll(
+                'a, button, .btn, .chip'
+            )
+            .forEach(el => {
+
+                el.addEventListener(
+                    'mouseenter',
+                    () => {
+
+                        ring.classList.add(
+                            'cursor-active'
+                        );
+
+                        dot.style.transform =
+                            'translate(-50%, -50%) scale(1.3)';
+                    }
+                );
+
+
+                el.addEventListener(
+                    'mouseleave',
+                    () => {
+
+                        ring.classList.remove(
+                            'cursor-active'
+                        );
+
+                        dot.style.transform =
+                            'translate(-50%, -50%) scale(1)';
+                    }
+                );
+
+            });
+
+    </script>
+
 
 </body>
+
 </html>
